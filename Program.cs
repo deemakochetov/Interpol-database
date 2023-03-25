@@ -11,13 +11,13 @@ class Program
     public string LastName { get; set; }
 
     public int Age { get; set; }
-    public string Gender { get; set; }
+    public Gender Gender { get; set; }
     public string Description { get; set; }
     public CriminalStatus Status { get; set; } // "active", "archived", "dead"
     public byte DangerLevel { get; set; }
     public DateOnly DateOfBirth { get; set; }
 
-    public Criminal(int id, string firstName, string lastName, DateOnly dateOfBirth, int age, string gender, string description, CriminalStatus status)
+    public Criminal(int id, string firstName, string lastName, DateOnly dateOfBirth, int age, Gender gender, string description, CriminalStatus status)
     {
       Id = id;
       FirstName = firstName;
@@ -48,6 +48,24 @@ class Program
     private readonly string name;
 
     private CriminalStatus(string name)
+    {
+      this.name = name;
+    }
+
+    public override string ToString()
+    {
+      return name;
+    }
+  }
+
+  public class Gender
+  {
+    public static readonly Gender Male = new Gender("Man");
+    public static readonly Gender Female = new Gender("Female");
+
+    private readonly string name;
+
+    private Gender(string name)
     {
       this.name = name;
     }
@@ -278,7 +296,7 @@ class Program
           ShowActiveCriminals();
           break;
         case "2":
-          // Реалізувати виведення списку злочинців в архіві
+          ShowArchivedCriminals();
           break;
         case "3":
           // Реалізувати додавання нового злочинця
@@ -347,7 +365,7 @@ class Program
 
           if (criminalToUpdate != null)
           {
-            Console.WriteLine($"Редагування злочинця {criminalToUpdate.Name} (ID: {criminalToUpdate.Id})");
+            Console.WriteLine($"Редагування злочинця {criminalToUpdate.FirstName} {criminalToUpdate.LastName} (ID: {criminalToUpdate.Id})");
 
             Console.Write("Ім'я: ");
             string name = Console.ReadLine();
@@ -355,20 +373,46 @@ class Program
             Console.Write("Вік: ");
             int age = int.Parse(Console.ReadLine());
 
-            Console.Write("Стать (Male/Female): ");
-            Gender gender = (Gender)Enum.Parse(typeof(Gender), Console.ReadLine(), true);
+            Console.WriteLine("Стать злочинця:");
+            Console.WriteLine("1. Чоловіча");
+            Console.WriteLine("2. Жіноча");
+            // do reuse questionss
+            string genderOption = Console.ReadLine();
+            Gender gender = Gender.Male; // default
+            switch (genderOption)
+            {
+              case "1":
+                gender = Gender.Male;
+                break;
+              case "2":
+                gender = Gender.Female;
+                break;
+            }
 
             Console.Write("Злочин: ");
             string crime = Console.ReadLine();
 
-            Console.WriteLine("Статуси: ");
-            foreach (CriminalStatus status in Enum.GetValues(typeof(CriminalStatus)))
-            {
-              Console.WriteLine($"{(int)status}. {status}");
-            }
+            // запит користувача щодо статусу злочинця
+            Console.WriteLine("Статус злочинця:");
+            Console.WriteLine("1. Діючий");
+            Console.WriteLine("2. Виправлений");
+            Console.WriteLine("3. Мертвий");
+            Console.Write("Оберіть опцію: ");
+            int statusOption = int.Parse(Console.ReadLine());
 
-            Console.Write("Статус (введіть номер): ");
-            int statusIndex = int.Parse(Console.ReadLine());
+            switch (statusOption)
+            {
+              case 1:
+                status = CriminalStatus.Active;
+                break;
+              case 2:
+                status = CriminalStatus.Archived;
+                break;
+              case 3:
+                status = CriminalStatus.Dead;
+                break;
+            }
+            database.UpdateCriminal() // do that;
           }
           break;
 
@@ -396,12 +440,12 @@ class Program
           }
           break;
         case "gender":
-          if (criminal.Gender == filterValue)
+          if (criminal.Gender.ToString() == filterValue)
           {
             filteredCriminals.Add(criminal);
           }
           break;
-        case "status":
+        case "birth":
           if (criminal.DateOfBirth == DateOnly.Parse(filterValue))
           {
             filteredCriminals.Add(criminal);
@@ -409,12 +453,6 @@ class Program
           break;
         case "level":
           if (criminal.DangerLevel == byte.Parse(filterValue))
-          {
-            filteredCriminals.Add(criminal);
-          }
-          break;
-        case "birth":
-          if (criminal.DateOfBirth == DateOnly.Parse(filterValue))
           {
             filteredCriminals.Add(criminal);
           }
@@ -456,9 +494,9 @@ class Program
     }
   }
   // maybe delete
-  public static void ShowArchivedCriminals(List<Criminal> criminals)
+  public static void ShowArchivedCriminals()
   {
-    List<Criminal> archiveCriminals = database.GetActiveCriminals();
+    List<Criminal> archiveCriminals = database.GetArchivedCriminals();
 
     Console.WriteLine("Список злочинців в архіві:");
     foreach (Criminal criminal in archiveCriminals)
@@ -481,8 +519,21 @@ class Program
     DateOnly dateOfBirth = DateOnly.Parse(Console.ReadLine());
     Console.Write("Вік: ");
     int age = int.Parse(Console.ReadLine());
-    Console.Write("Стать (чол./жін.): ");
-    string gender = Console.ReadLine();
+    Console.WriteLine("Стать злочинця:");
+    Console.WriteLine("1. Чоловіча");
+    Console.WriteLine("2. Жіноча");
+    // do reuse questionss
+    string genderOption = Console.ReadLine();
+    Gender gender = Gender.Male; // default
+    switch (genderOption)
+    {
+      case "1":
+        gender = Gender.Male;
+        break;
+      case "2":
+        gender = Gender.Female;
+        break;
+    }
     Console.Write("Опис злочину: ");
     string description = Console.ReadLine();
     CriminalStatus status = CriminalStatus.Active;
@@ -508,9 +559,10 @@ class Program
         break;
     }
 
-    Criminal newCriminal = new Criminal(firstName, lastName, dateOfBirth, age, gender, description, status);
+    Criminal newCriminal = new Criminal(0, firstName, lastName, dateOfBirth, age, gender, description, status);
     database.AddCriminal(newCriminal);
     Console.WriteLine("Злочинець успішно доданий до списку!");
   }
 
 }
+// danger level
