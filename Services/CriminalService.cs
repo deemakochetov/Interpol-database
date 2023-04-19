@@ -111,5 +111,23 @@ namespace CriminalsProgram.Services
       database.AddCriminal(newCriminal);
       CriminalView.LogSuccess();
     }
+
+    public static void UpdateCriminal()
+    {
+      int id = CriminalView.PromptId();
+      Criminal criminalToUpdate = database.GetActiveCriminals().Find(c => c.Id == id);
+
+      if (criminalToUpdate != null)
+      {
+        CriminalView.Log($"Редагування злочинця {criminalToUpdate.FirstName} {criminalToUpdate.LastName} (ID: {criminalToUpdate.Id})");
+        Criminal updatedCriminal = CriminalView.PromptUpdate(criminalToUpdate);
+
+        database.UpdateCriminal(id, updatedCriminal);
+      }
+      else
+      {
+        CriminalView.Log("Not found");
+      }
+    }
   }
 }

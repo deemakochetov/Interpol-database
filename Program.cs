@@ -96,76 +96,8 @@ class Program
           Console.ReadKey();
           break;
         case "6":
-          Console.Write("Введіть ID злочинця для редагування: ");
-          int id = int.Parse(Console.ReadLine());
 
-          Criminal criminalToUpdate = CriminalService.GetActiveCriminals().Find(c => c.Id == id);
-
-          if (criminalToUpdate != null)
-          {
-            Console.WriteLine($"Редагування злочинця {criminalToUpdate.FirstName} {criminalToUpdate.LastName} (ID: {criminalToUpdate.Id})");
-
-            Console.Write("Ім'я: ");
-            string firstName = Console.ReadLine();
-            // reuse prompt
-            Console.Write("Прізвище: ");
-            string lastName = Console.ReadLine();
-
-            Console.Write("Вік: ");
-            int age = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Стать злочинця:");
-            Console.WriteLine("1. Чоловіча");
-            Console.WriteLine("2. Жіноча");
-            // do reuse questionss
-            string genderOption = Console.ReadLine();
-            Gender gender; // default
-            switch (genderOption)
-            {
-              case "1":
-                gender = Gender.Male;
-                break;
-              case "2":
-                gender = Gender.Female;
-                break;
-            }
-
-            Console.Write("Злочин: ");
-            string crime = Console.ReadLine();
-
-            // запит користувача щодо статусу злочинця
-            Console.WriteLine("Статус злочинця:");
-            Console.WriteLine("1. Діючий");
-            Console.WriteLine("2. Виправлений");
-            Console.WriteLine("3. Мертвий");
-            Console.Write("Оберіть опцію: ");
-            int statusOption = int.Parse(Console.ReadLine());
-            CriminalStatus status;
-            switch (statusOption)
-            {
-              case 1:
-                status = CriminalStatus.Active;
-                break;
-              case 2:
-                status = CriminalStatus.Archived;
-                break;
-              case 3:
-                status = CriminalStatus.Dead;
-                break;
-            }
-            // Criminal updatedCriminal = new Criminal(id, firstName, lastName, dateOfBirth, age, (Gender)Enum.Parse(typeof(Gender), gender, true), description, status);
-
-            // database.UpdateCriminal(id, ); // do that;
-          }
-          else
-          {
-            Console.WriteLine("Not found");
-          }
-          break;
-
-        default:
-          Console.WriteLine("Невірний вибір опції. Натисніть будь-яку клавішу для продовження...");
-          Console.ReadKey();
+          CriminalService.UpdateCriminal();
 
           break;
       }
