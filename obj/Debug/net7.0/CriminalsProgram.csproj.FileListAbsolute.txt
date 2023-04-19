@@ -1,0 +1,15 @@
+/Users/dima/Programming/CriminalsProgram/bin/Debug/net7.0/CriminalsProgram
+/Users/dima/Programming/CriminalsProgram/bin/Debug/net7.0/CriminalsProgram.deps.json
+/Users/dima/Programming/CriminalsProgram/bin/Debug/net7.0/CriminalsProgram.runtimeconfig.json
+/Users/dima/Programming/CriminalsProgram/bin/Debug/net7.0/CriminalsProgram.dll
+/Users/dima/Programming/CriminalsProgram/bin/Debug/net7.0/CriminalsProgram.pdb
+/Users/dima/Programming/CriminalsProgram/obj/Debug/net7.0/CriminalsProgram.csproj.AssemblyReference.cache
+/Users/dima/Programming/CriminalsProgram/obj/Debug/net7.0/CriminalsProgram.GeneratedMSBuildEditorConfig.editorconfig
+/Users/dima/Programming/CriminalsProgram/obj/Debug/net7.0/CriminalsProgram.AssemblyInfoInputs.cache
+/Users/dima/Programming/CriminalsProgram/obj/Debug/net7.0/CriminalsProgram.AssemblyInfo.cs
+/Users/dima/Programming/CriminalsProgram/obj/Debug/net7.0/CriminalsProgram.csproj.CoreCompileInputs.cache
+/Users/dima/Programming/CriminalsProgram/obj/Debug/net7.0/CriminalsProgram.dll
+/Users/dima/Programming/CriminalsProgram/obj/Debug/net7.0/refint/CriminalsProgram.dll
+/Users/dima/Programming/CriminalsProgram/obj/Debug/net7.0/CriminalsProgram.pdb
+/Users/dima/Programming/CriminalsProgram/obj/Debug/net7.0/CriminalsProgram.genruntimeconfig.cache
+/Users/dima/Programming/CriminalsProgram/obj/Debug/net7.0/ref/CriminalsProgram.dll
