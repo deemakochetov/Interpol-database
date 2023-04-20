@@ -33,8 +33,7 @@ namespace CriminalsProgram.Views
       string firstName = Console.ReadLine();
       Console.Write("Прізвище: ");
       string lastName = Console.ReadLine();
-      Console.Write("Дата народження (yyyy-mm-dd): ");
-      DateOnly dateOfBirth = DateOnly.Parse(Console.ReadLine());
+      DateOnly dateOfBirth = PromptBirthDate();
       Console.Write("Вік: ");
       // add validity check
       int age = int.Parse(Console.ReadLine());
@@ -93,11 +92,43 @@ namespace CriminalsProgram.Views
     public static int PromptId()
     {
       Console.Write("Введіть ID злочинця для редагування: ");
-      int id = int.Parse(Console.ReadLine());
-      // add check
-      return id;
+      string input = Console.ReadLine();
+      int id;
+      if (int.TryParse(input, out id))
+      {
+        return id;
+      }
+      else
+      {
+        Console.Write("Невірне ID злочинця");
+        return PromptId();
+      }
     }
 
+    public static DateOnly PromptBirthDate()
+    {
+      Console.Write("Дата народження (yyyy-mm-dd): ");
+      string input = Console.ReadLine();
+      DateOnly dateOfBirth;
+      if (DateOnly.TryParse(input, out dateOfBirth))
+      {
+        return dateOfBirth;
+      }
+      else
+      {
+        Console.Write("Некоректний формат");
+        return PromptBirthDate();
+      }
+    }
+    public static int CalculateAge(DateOnly dateOfBirth)
+    {
+      int age = DateTime.Now.Year - dateOfBirth.Year;
+      if (DateTime.Now.DayOfYear < dateOfBirth.DayOfYear)
+      {
+        age--;
+      }
+      return age;
+    }
     public static Criminal PromptUpdate(Criminal criminal)
     {
       Console.WriteLine("Оберіть інформацію, яку ви хочете змінити:");

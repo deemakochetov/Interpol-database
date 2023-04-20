@@ -96,9 +96,7 @@ class Program
           Console.ReadKey();
           break;
         case "6":
-
           CriminalService.UpdateCriminal();
-
           break;
       }
     }
