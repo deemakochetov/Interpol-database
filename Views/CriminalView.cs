@@ -28,56 +28,28 @@ namespace CriminalsProgram.Views
 
     public static Criminal PromptCriminal()
     {
-      Console.WriteLine("Додати нового злочинця:");
-      Console.Write("Ім'я: ");
-      string firstName = Console.ReadLine();
-      Console.Write("Прізвище: ");
-      string lastName = Console.ReadLine();
+      Log("Додати нового злочинця:");
+      string firstName = PromptString("Ім'я: ");
+      string lastName = PromptString("Прізвище: ");
+      string nickname = PromptString("Кличка: ");
+      int height = PromptInt("Зріст: ");
+      int weight = PromptInt("Вага: ");
+      string hairColor = PromptString("Колір волосся: ");
+      string eyesColor = PromptString("Колір очей: ");
+      string nationality = PromptString("Національність: ");
+      string birthPlace = PromptString("Місце народження: ");
+      string lastResidencePlace = PromptString("Останнє місце проживання: ");
+      string currentLocation = PromptString("Поточне місце знаходження: ");
+      string languages = PromptString("Знання мов: ");
+      string criminalJob = PromptString("Кримінальне заняття: ");
+      string lastCase = PromptString("Останній злочин: ");
+      string appearance = PromptString("Зовнішній вигляд: ");
+      Gender gender = PromptGender();
       DateOnly dateOfBirth = PromptBirthDate();
-      Console.Write("Вік: ");
-      // add validity check
-      int age = int.Parse(Console.ReadLine());
-      Console.WriteLine("Стать злочинця:");
-      Console.WriteLine("1. Чоловіча");
-      Console.WriteLine("2. Жіноча");
-
-      string genderOption = Console.ReadLine();
-      Gender gender = Gender.Male; // default
-      switch (genderOption)
-      {
-        case "1":
-          gender = Gender.Male;
-          break;
-        case "2":
-          gender = Gender.Female;
-          break;
-      }
-      Console.Write("Опис злочину: ");
-      string description = Console.ReadLine();
-      CriminalStatus status = CriminalStatus.Active;
-
-      // запит користувача щодо статусу злочинця
-      Console.WriteLine("Статус злочинця:");
-      Console.WriteLine("1. Діючий");
-      Console.WriteLine("2. Виправлений");
-      Console.WriteLine("3. Мертвий");
-      Console.Write("Оберіть опцію: ");
-      int statusOption = int.Parse(Console.ReadLine());
-      switch (statusOption)
-      {
-        case 1:
-          status = CriminalStatus.Active;
-          break;
-        case 2:
-          status = CriminalStatus.Archived;
-          break;
-        case 3:
-          status = CriminalStatus.Dead;
-          break;
-      }
-      // default case
-
-      Criminal newCriminal = new Criminal(0, firstName, lastName, dateOfBirth, age, gender, description, status);
+      string description = PromptString("Опис злочину: ");
+      CriminalStatus status = PromptStatus();
+      List<Alias> aliases = PromptAliases();
+      Criminal newCriminal = new Criminal(0, firstName, lastName, dateOfBirth, gender, description, status);
       return newCriminal;
     }
 
@@ -89,6 +61,91 @@ namespace CriminalsProgram.Views
     {
       Console.WriteLine(message);
     }
+    public static string PromptString(string message)
+    {
+      Console.Write(message);
+      string input = Console.ReadLine();
+      return input;
+    }
+    public static int PromptInt(string message)
+    {
+      Log(message);
+      string input = Console.ReadLine();
+      int number;
+      if (int.TryParse(input, out number))
+      {
+        return number;
+      }
+      else
+      {
+        Log("Значення повинне бути числом");
+        return PromptInt(message);
+      }
+    }
+
+    public static CriminalStatus PromptStatus()
+    {
+      Log("Статус злочинця:");
+      Log("1. Діючий");
+      Log("2. Виправлений");
+      Log("3. Мертвий");
+      Log("Оберіть опцію: ");
+      int statusOption = int.Parse(Console.ReadLine());
+      switch (statusOption)
+      {
+        case 1:
+          return CriminalStatus.Active;
+        case 2:
+          return CriminalStatus.Archived;
+        case 3:
+          return CriminalStatus.Dead;
+        default:
+          Log("Некорректний ввід");
+          return PromptStatus();
+      }
+    }
+
+    public static List<Alias> PromptAliases()
+    {
+      Log("Оберіть угруповання:");
+      Log("1. Діючий");
+      Log("2. Виправлений");
+      Log("3. Створити нове");
+      Log("Оберіть опцію: ");
+      int statusOption = int.Parse(Console.ReadLine());
+      switch (statusOption)
+      {
+        case 1:
+          return CriminalStatus.Active;
+        case 2:
+          return CriminalStatus.Archived;
+        case 3:
+          return CriminalStatus.Dead;
+        default:
+          Log("Некорректний ввід");
+          return PromptStatus();
+      }
+    }
+
+    public static Gender PromptGender()
+    {
+      Log("Стать злочинця:");
+      Log("1. Чоловіча");
+      Log("2. Жіноча");
+
+      string genderOption = Console.ReadLine();
+      switch (genderOption)
+      {
+        case "1":
+          return Gender.Male;
+        case "2":
+          return Gender.Female;
+        default:
+          Log("Некорректний ввід");
+          return PromptGender();
+      }
+    }
+
     public static int PromptId()
     {
       Console.Write("Введіть ID злочинця для редагування: ");
@@ -134,12 +191,24 @@ namespace CriminalsProgram.Views
       Console.WriteLine("Оберіть інформацію, яку ви хочете змінити:");
       Console.WriteLine("1. Імʼя");
       Console.WriteLine("2. Прізвище");
-      Console.WriteLine("3. Вік");
-      Console.WriteLine("4. Гендер");
-      Console.WriteLine("5. Опис злочину");
-      Console.WriteLine("6. Статус");
-      Console.WriteLine("7. Дата народження");
-      Console.WriteLine("8. Завершити редагування");
+      Console.WriteLine("3. Кличка");
+      Console.WriteLine("4. Зріст");
+      Console.WriteLine("5. Вага");
+      Console.WriteLine("6. Колір волосся");
+      Console.WriteLine("7. Колір очей");
+      Console.WriteLine("8. Національність");
+      Console.WriteLine("9. Місце народження");
+      Console.WriteLine("10. Останнє місце проживання");
+      Console.WriteLine("11. Поточне місце знаходження");
+      Console.WriteLine("12. Знання мов");
+      Console.WriteLine("13. Кримінальне заняття");
+      Console.WriteLine("14. Останній злочин");
+      Console.WriteLine("15. Зовнішній вигляд");
+      Console.WriteLine("16. Гендер");
+      Console.WriteLine("17. Опис злочину");
+      Console.WriteLine("18. Статус");
+      Console.WriteLine("19. Дата народження");
+      Console.WriteLine("20. Завершити редагування");
 
 
       Console.Write("Оберіть опцію: ");

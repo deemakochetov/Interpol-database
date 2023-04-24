@@ -47,7 +47,6 @@ namespace CriminalsProgram.Repositories
     {
       criminalToUpdate.FirstName = updatedCriminal.FirstName;
       criminalToUpdate.LastName = updatedCriminal.LastName;
-      criminalToUpdate.Age = updatedCriminal.Age;
       criminalToUpdate.Gender = updatedCriminal.Gender;
       criminalToUpdate.Description = updatedCriminal.Description;
       criminalToUpdate.DangerLevel = updatedCriminal.DangerLevel;
@@ -107,8 +106,7 @@ namespace CriminalsProgram.Repositories
       foreach (Criminal criminal in activeCriminals)
       {// optimize name
         if ((criminal.FirstName + " " + criminal.LastName).ToLower().Contains(query.ToLower()) ||
-            criminal.Description.ToLower().Contains(query.ToLower()) ||
-            criminal.Age.ToString().ToLower().Contains(query.ToLower()))
+            criminal.Description.ToLower().Contains(query.ToLower()))
         {
           results.Add(criminal);
         }
