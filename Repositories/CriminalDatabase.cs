@@ -11,11 +11,13 @@ namespace CriminalsProgram.Repositories
     private List<Criminal> activeCriminals;
     private List<Criminal> archivedCriminals;
     private int nextId;
+    private string fileName;
 
     public CriminalDatabase()
     {
       activeCriminals = new List<Criminal>();
       archivedCriminals = new List<Criminal>();
+      fileName = "criminals.json";
       LoadCriminals();
     }
 
@@ -117,56 +119,12 @@ namespace CriminalsProgram.Repositories
 
     public void SaveCriminals()
     {
-      using (StreamWriter sw = new StreamWriter("criminals.txt"))
-      {
-        foreach (Criminal criminal in activeCriminals)
-        {
-          sw.WriteLine(criminal.ToString());
-        }
-
-        foreach (Criminal criminal in archivedCriminals)
-        {
-          sw.WriteLine(criminal.ToString() + ",archived");
-        }
-      }
+      FileHelper.SaveCriminals(fileName, activeCriminals, archivedCriminals);
     }
 
     private void LoadCriminals()
     {
-      if (!File.Exists("criminals.txt"))
-      {
-        return;
-      }
-
-      using (StreamReader sr = new StreamReader("criminals.txt"))
-      {
-        while (!sr.EndOfStream)
-        {
-          string line = sr.ReadLine();
-          string[] parts = line.Split(',');
-
-          int id = int.Parse(parts[0]);
-          string firstName = parts[1];
-          string lastName = parts[2];
-          DateOnly dateOfBirth = DateOnly.Parse(parts[3]);
-          // condider byte
-          int age = int.Parse(parts[4]);
-          string gender = parts[5];
-          string description = parts[6];
-          // dont use commas
-          CriminalStatus status = (CriminalStatus)Enum.Parse(typeof(CriminalStatus), parts[7], true);
-          Criminal criminal = new Criminal(id, firstName, lastName, dateOfBirth, age, (Gender)Enum.Parse(typeof(Gender), gender, true), description, status);
-
-          if (parts.Length > 5 && parts[7] == CriminalStatus.Dead.ToString())
-          {
-            archivedCriminals.Add(criminal);
-          }
-          else
-          {
-            activeCriminals.Add(criminal);
-          }
-        }
-      }
+      FileHelper.LoadCriminals(fileName, out activeCriminals, out archivedCriminals);
     }
   }
 }
