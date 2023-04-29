@@ -13,7 +13,7 @@ namespace CriminalsProgram.Services
     public static void ShowAliases()
     {
       List<Alias> aliases = database.GetAllAliases();
-      AliasView.ShowAliases(aliases);
+      ListObjects<Alias>(aliases);
     }
 
     public static void AddAlias()
@@ -26,7 +26,7 @@ namespace CriminalsProgram.Services
 
     public static void UpdateAlias()
     {
-      int id = AliasView.PromptId();
+      int id = PromptId();
       Alias aliasToUpdate = database.GetAliasById(id); // do the same for criminal
 
       if (aliasToUpdate != null)
@@ -41,5 +41,13 @@ namespace CriminalsProgram.Services
         Log("Not found");
       }
     }
+
+    public static List<Alias> PromptAliases()
+    {
+      List<Alias> aliases = database.GetAllAliases();
+      List<Alias> chosenAliases = new List<Alias>();
+      return AliasView.PromptAliases(aliases, chosenAliases);
+    }
+
   }
 }

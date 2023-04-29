@@ -2,22 +2,47 @@ using System;
 using CriminalsProgram.Models.Main;
 using CriminalsProgram.Models.Helpers;
 using CriminalsProgram.Services;
+using CriminalsProgram.Models.Repositories;
 
 namespace CriminalsProgram.Views
 {
   public static class GeneralView
   {
+    public static void ListObjects<T>(List<T> objects) where T : IReviewable
+    {
+      if (objects.Count == 0)
+      {
+        Log("Список порожній.");
+      }
+      else
+      {
+        Log($"Знайдено {objects.Count} обʼєктів:");
+        foreach (T instance in objects)
+        {
+          Log(instance.GetReview());
+          Log("--------------------------");
+        }
+      }
+      Log("Натисніть будь-яку клавішу для продовження...");
+      Console.ReadKey();
+    }
     public static void LogSuccess()
     {
-      Console.WriteLine("Операція успішно виконана!");
+      Log("Операція успішно виконана!");
     }
     public static void Log(string message)
     {
       Console.WriteLine(message);
     }
-    public static string PromptString(string message)
+
+    public static void Print(string message)
     {
       Console.Write(message);
+    }
+
+    public static string PromptString(string message)
+    {
+      Print(message);
       string input = Console.ReadLine();
       return input;
     }
@@ -34,6 +59,38 @@ namespace CriminalsProgram.Views
       {
         Log("Значення повинне бути числом");
         return PromptInt(message);
+      }
+    }
+
+    public static int PromptId()
+    {
+      Print("Введіть ID обʼєкта для редагування: ");
+      string input = Console.ReadLine();
+      int id;
+      if (int.TryParse(input, out id))
+      {
+        return id;
+      }
+      else
+      {
+        Print("Невірне ID обʼєкта");
+        return PromptId();
+      }
+    }
+
+    public static DateOnly PromptBirthDate()
+    {
+      Print("Дата народження (yyyy-mm-dd): ");
+      string input = Console.ReadLine();
+      DateOnly dateOfBirth;
+      if (DateOnly.TryParse(input, out dateOfBirth))
+      {
+        return dateOfBirth;
+      }
+      else
+      {
+        Print("Некоректний формат");
+        return PromptBirthDate();
       }
     }
   }

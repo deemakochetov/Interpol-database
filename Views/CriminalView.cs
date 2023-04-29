@@ -9,25 +9,6 @@ namespace CriminalsProgram.Views
 {
   public static class CriminalView
   {
-    public static void ShowCriminals(List<Criminal> criminals)
-    {
-      if (criminals.Count == 0)
-      {
-        Console.WriteLine("Список порожній.");
-      }
-      else
-      {
-        Console.WriteLine($"Знайдено {criminals.Count} злочинців:");
-        foreach (Criminal criminal in criminals)
-        {
-          Console.WriteLine(criminal.GetReview());
-          Console.WriteLine("--------------------------");
-        }
-      }
-      Console.WriteLine("Натисніть будь-яку клавішу для продовження...");
-      Console.ReadKey();
-    }
-
     public static Criminal PromptCriminal()
     {
       dynamic criminalObj = new { };
@@ -51,7 +32,7 @@ namespace CriminalsProgram.Views
       criminalObj.dateOfBirth = PromptBirthDate();
       criminalObj.description = PromptString("Опис злочину: ");
       criminalObj.status = PromptStatus();
-      criminalObj.aliases = PromptAliases();
+      criminalObj.aliases = AliasService.PromptAliases();
       Criminal newCriminal = new Criminal(criminalObj);
       return newCriminal;
     }
@@ -101,37 +82,7 @@ namespace CriminalsProgram.Views
       }
     }
 
-    public static int PromptId()
-    {
-      Console.Write("Введіть ID злочинця для редагування: ");
-      string input = Console.ReadLine();
-      int id;
-      if (int.TryParse(input, out id))
-      {
-        return id;
-      }
-      else
-      {
-        Console.Write("Невірне ID злочинця");
-        return PromptId();
-      }
-    }
 
-    public static DateOnly PromptBirthDate()
-    {
-      Console.Write("Дата народження (yyyy-mm-dd): ");
-      string input = Console.ReadLine();
-      DateOnly dateOfBirth;
-      if (DateOnly.TryParse(input, out dateOfBirth))
-      {
-        return dateOfBirth;
-      }
-      else
-      {
-        Console.Write("Некоректний формат");
-        return PromptBirthDate();
-      }
-    }
     public static int CalculateAge(DateOnly dateOfBirth)
     {
       int age = DateTime.Now.Year - dateOfBirth.Year;
@@ -141,111 +92,126 @@ namespace CriminalsProgram.Views
       }
       return age;
     }
+
     public static Criminal PromptUpdate(Criminal criminal)
     {
-      Console.WriteLine("Оберіть інформацію, яку ви хочете змінити:");
-      Console.WriteLine("1. Імʼя");
-      Console.WriteLine("2. Прізвище");
-      Console.WriteLine("3. Кличка");
-      Console.WriteLine("4. Зріст");
-      Console.WriteLine("5. Вага");
-      Console.WriteLine("6. Колір волосся");
-      Console.WriteLine("7. Колір очей");
-      Console.WriteLine("8. Національність");
-      Console.WriteLine("9. Місце народження");
-      Console.WriteLine("10. Останнє місце проживання");
-      Console.WriteLine("11. Поточне місце знаходження");
-      Console.WriteLine("12. Знання мов");
-      Console.WriteLine("13. Кримінальне заняття");
-      Console.WriteLine("14. Останній злочин");
-      Console.WriteLine("15. Зовнішній вигляд");
-      Console.WriteLine("16. Гендер");
-      Console.WriteLine("17. Опис злочину");
-      Console.WriteLine("18. Статус");
-      Console.WriteLine("19. Дата народження");
-      Console.WriteLine("20. Завершити редагування");
+      Log("Оберіть інформацію, яку ви хочете змінити:");
+      Log("1. Імʼя");
+      Log("2. Прізвище");
+      Log("3. Кличка");
+      Log("4. Зріст");
+      Log("5. Вага");
+      Log("6. Колір волосся");
+      Log("7. Колір очей");
+      Log("8. Національність");
+      Log("9. Місце народження");
+      Log("10. Останнє місце проживання");
+      Log("11. Поточне місце знаходження");
+      Log("12. Знання мов");
+      Log("13. Кримінальне заняття");
+      Log("14. Останній злочин");
+      Log("15. Зовнішній вигляд");
+      Log("16. Гендер");
+      Log("17. Опис злочину");
+      Log("18. Статус");
+      Log("19. Дата народження");
+      Log("20. Угруповання");
+      Log("21. Завершити редагування");
 
 
-      Console.Write("Оберіть опцію: ");
-      int fieldOption = int.Parse(Console.ReadLine());
-
+      int fieldOption = PromptInt("Оберіть опцію: ");
+      // cahnge/ update
       switch (fieldOption)
       {
         case 1:
-          Console.Write("Ім'я: ");
-          string firstName = Console.ReadLine();
+          string firstName = PromptString("Ім'я: ");
           criminal.FirstName = firstName;
           break;
         case 2:
-          Console.Write("Прізвище: ");
-          string lastName = Console.ReadLine();
+          string lastName = PromptString("Прізвище: ");
           criminal.LastName = lastName;
           break;
         case 3:
-          Console.Write("Вік: ");
-          int age = int.Parse(Console.ReadLine());
-          criminal.Age = age;
+          string nickname = PromptString("Кличка: ");
+          criminal.Nickname = nickname;
           break;
         case 4:
-          Console.WriteLine("Стать злочинця:");
-          Console.WriteLine("1. Чоловіча");
-          Console.WriteLine("2. Жіноча");
-          // do reuse questionss
-          string genderOption = Console.ReadLine();
-          Gender gender = criminal.Gender; // default
-          switch (genderOption)
-          {
-            case "1":
-              gender = Gender.Male;
-              break;
-            case "2":
-              gender = Gender.Female;
-              break;
-          }
-          criminal.Gender = gender;
+          int height = PromptInt("Зріст: ");
+          criminal.Height = height;
           break;
         case 5:
-          Console.Write("Злочин: ");
-          string crime = Console.ReadLine();
-          criminal.Description = crime;
+          int weight = PromptInt("Вага: ");
+          criminal.Weight = weight;
           break;
         case 6:
-          Console.WriteLine("Статус злочинця:");
-          Console.WriteLine("1. Діючий");
-          Console.WriteLine("2. Виправлений");
-          Console.WriteLine("3. Мертвий");
-          Console.Write("Оберіть опцію: ");
-          int statusOption = int.Parse(Console.ReadLine());
-          CriminalStatus status = criminal.Status;
-          switch (statusOption)
-          {
-            case 1:
-              status = CriminalStatus.Active;
-              break;
-            case 2:
-              status = CriminalStatus.Archived;
-              break;
-            case 3:
-              status = CriminalStatus.Dead;
-              break;
-          }
-          criminal.Status = status;
+          string hairColor = PromptString("Колір волосся: ");
+          criminal.HairColor = hairColor;
           break;
         case 7:
-          Console.Write("Дата народження (yyyy-mm-dd): ");
-          DateOnly dateOfBirth = DateOnly.Parse(Console.ReadLine());
-          criminal.DateOfBirth = dateOfBirth;
+          string eyesColor = PromptString("Колір очей: ");
+          criminal.EyesColor = eyesColor;
           break;
         case 8:
+          string nationality = PromptString("Національність: ");
+          criminal.Nationality = nationality;
           break;
-        // exit
+        case 9:
+          string birthPlace = PromptString("Місце народження: ");
+          criminal.BirthPlace = birthPlace;
+          break;
+        case 10:
+          string lastResidencePlace = PromptString("Останнє місце проживання: ");
+          criminal.LastResidencePlace = lastResidencePlace;
+          break;
+        case 11:
+          string currentLocation = PromptString("Поточне місце знаходження: ");
+          criminal.CurrentLocation = currentLocation;
+          break;
+        case 12:
+          string languages = PromptString("Знання мов: ");
+          criminal.Languages = languages;
+          break;
+        case 13:
+          string criminalJob = PromptString("Кримінальне заняття: ");
+          criminal.CriminalJob = criminalJob;
+          break;
+        case 14:
+          string lastCase = PromptString("Останній злочин: ");
+          criminal.LastCase = lastCase;
+          break;
+        case 15:
+          string appearance = PromptString("Зовнішній вигляд: ");
+          criminal.Appearance = appearance;
+          break;
+        case 16:
+          Gender gender = PromptGender();
+          criminal.Gender = gender;
+          break;
+        case 17:
+          string description = PromptString("Опис злочину: ");
+          criminal.Description = description;
+          break;
+        case 18:
+          CriminalStatus status = PromptStatus();
+          criminal.Status = status;
+          break;
+        case 19:
+          DateOnly dateOfBirth = PromptBirthDate();
+          criminal.DateOfBirth = dateOfBirth;
+          break;
+        case 20:
+          List<Alias> aliases = AliasService.PromptAliases();
+          criminal.Aliases = aliases;
+          break;
+        case 21:
+          return criminal;
         default:
-          Console.WriteLine("Невірний вибір опції. Натисніть будь-яку клавішу для продовження...");
+          Log("Невірний вибір опції. Натисніть будь-яку клавішу для продовження...");
           Console.ReadKey();
           break;
       }
 
-      return criminal;
+      return PromptUpdate(criminal);
     }
   }
 

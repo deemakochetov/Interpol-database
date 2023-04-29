@@ -1,5 +1,4 @@
 using CriminalsProgram.Models.Main;
-using CriminalsProgram.Models.Helpers;
 using CriminalsProgram.Repositories;
 using CriminalsProgram.Views;
 using static CriminalsProgram.Views.GeneralView;
@@ -20,11 +19,6 @@ namespace CriminalsProgram.Services
       return criminals.Where(criminal => criminal.LastName == surname).ToList();
     }
 
-    public static List<Criminal> FilterByAge(List<Criminal> criminals, int age)
-    {
-      return criminals.Where(criminal => criminal.Age == age).ToList();
-    }
-
     public static List<Criminal> FilterCriminals(List<Criminal> criminals, string filterType, string filterValue)
     {
       List<Criminal> filteredCriminals = new List<Criminal>();
@@ -33,12 +27,6 @@ namespace CriminalsProgram.Services
       {
         switch (filterType)
         {
-          case "age":
-            if (criminal.Age.ToString() == filterValue)
-            {
-              filteredCriminals.Add(criminal);
-            }
-            break;
           case "gender":
             if (criminal.Gender.ToString() == filterValue)
             {
@@ -66,7 +54,7 @@ namespace CriminalsProgram.Services
     public static void ShowActiveCriminals()
     {
       List<Criminal> activeCriminals = database.GetActiveCriminals();
-      CriminalView.ShowCriminals(activeCriminals);
+      ListObjects<Criminal>(activeCriminals);
     }
     public static List<Criminal> GetActiveCriminals()
     {
@@ -77,7 +65,8 @@ namespace CriminalsProgram.Services
     public static void ShowArchivedCriminals()
     {
       List<Criminal> archivedCriminals = database.GetArchivedCriminals();
-      CriminalView.ShowCriminals(archivedCriminals);
+      ListObjects<Criminal>(archivedCriminals);
+
     }
     public static List<Criminal> GetArchivedCriminals()
     {
@@ -115,7 +104,7 @@ namespace CriminalsProgram.Services
 
     public static void UpdateCriminal()
     {
-      int id = CriminalView.PromptId();
+      int id = PromptId();
       Criminal criminalToUpdate = database.GetActiveCriminals().Find(c => c.Id == id);
 
       if (criminalToUpdate != null)

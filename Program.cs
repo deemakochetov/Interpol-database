@@ -5,6 +5,7 @@ using CriminalsProgram.Models.Main;
 using CriminalsProgram.Repositories;
 using CriminalsProgram.Services;
 using CriminalsProgram.Views;
+using static CriminalsProgram.Views.GeneralView;
 
 namespace CriminalsProgram;
 class Program
@@ -45,7 +46,7 @@ class Program
           Console.WriteLine("Фільтрування злочинців");
           Console.WriteLine("1. Фільтрувати за ім'ям");
           Console.WriteLine("2. Фільтрувати за прізвищем");
-          Console.WriteLine("3. Фільтрувати за віком");
+          // Console.WriteLine("3. Фільтрувати за віком");
           Console.Write("Виберіть опцію: ");
           string filterChoice = Console.ReadLine();
           // auto age
@@ -55,20 +56,20 @@ class Program
               Console.Write("Введіть ім'я для фільтрування: ");
               string nameFilter = Console.ReadLine();
               List<Criminal> filteredByName = CriminalService.FilterByName(CriminalService.GetActiveCriminals(), nameFilter);
-              CriminalView.ShowCriminals(filteredByName);
+              ListObjects<Criminal>(filteredByName);
               break;
             case "2":
               Console.Write("Введіть прізвище для фільтрування: ");
               string surnameFilter = Console.ReadLine();
               List<Criminal> filteredBySurname = CriminalService.FilterBySurname(criminals, surnameFilter);
-              CriminalView.ShowCriminals(filteredBySurname);
+              ListObjects<Criminal>(filteredBySurname);
               break;
-            case "3":
-              Console.WriteLine("Введіть вік для фільтрування: ");
-              int ageFilter = int.Parse(Console.ReadLine());
-              List<Criminal> filteredByStatus = CriminalService.FilterByAge(criminals, ageFilter);
-              CriminalView.ShowCriminals(filteredByStatus);
-              break;
+            // case "3":
+            //   Console.WriteLine("Введіть вік для фільтрування: ");
+            //   int ageFilter = int.Parse(Console.ReadLine());
+            //   List<Criminal> filteredByStatus = CriminalService.FilterByAge(criminals, ageFilter);
+            //   ListObjects<Criminal>(filteredByStatus);
+            //   break;
             default:
               Console.WriteLine("Невірний вибір опції. Натисніть будь-яку клавішу для продовження...");
               Console.ReadKey();

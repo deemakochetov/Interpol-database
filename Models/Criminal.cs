@@ -1,9 +1,10 @@
 using System;
 using CriminalsProgram.Models.Helpers;
+using CriminalsProgram.Models.Repositories;
 
 namespace CriminalsProgram.Models.Main
 {
-  public class Criminal
+  public class Criminal : IReviewable
   {
     public int Id { get; set; }
     public string FirstName { get; set; }
@@ -55,11 +56,6 @@ namespace CriminalsProgram.Models.Main
       Description = obj.description;
       Status = obj.status;
       DateOfBirth = obj.dateOfBirth;
-    }
-
-    public override string ToString()
-    {
-      return $"{Id};;{FirstName};;{LastName};;{Nickname};;{Height};;{Weight};;{HairColor};;{EyesColor};;{Nationality};;{BirthPlace};;{LastResidencePlace};;{CurrentLocation};;{Languages};;{CriminalJob};;{LastCase};;{Aliases};;{Appearance};;{Gender};;{Description};;{Status};;{DateOfBirth}";
     }
 
     public string GetReview()
