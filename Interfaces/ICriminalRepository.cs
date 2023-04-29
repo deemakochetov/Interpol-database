@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using CriminalsProgram.Models.Main;
 
-namespace CriminalsProgram.Models.Repositories
+namespace CriminalsProgram.Interfaces
 {
   public interface ICriminalRepository
   {

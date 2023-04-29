@@ -9,6 +9,7 @@ namespace CriminalsProgram.Services
 {
   static class AliasService
   {
+    private static int nextId = 0;
     private static AliasDatabase database = new AliasDatabase();
     public static void ShowAliases()
     {
@@ -18,7 +19,8 @@ namespace CriminalsProgram.Services
 
     public static void AddAlias()
     {
-      Alias newAlias = AliasView.PromptAlias();
+      Alias newAlias = AliasView.PromptAlias(nextId);
+      nextId++;
 
       database.AddAlias(newAlias);
       LogSuccess();

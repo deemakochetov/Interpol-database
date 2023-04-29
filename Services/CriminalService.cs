@@ -1,12 +1,15 @@
 using CriminalsProgram.Models.Main;
 using CriminalsProgram.Repositories;
 using CriminalsProgram.Views;
+
 using static CriminalsProgram.Views.GeneralView;
 
 namespace CriminalsProgram.Services
 {
   static class CriminalService
   {
+    private static int nextId = 0;
+
     private static CriminalDatabase database = new CriminalDatabase();
 
     public static List<Criminal> FilterByName(List<Criminal> criminals, string name)
@@ -96,7 +99,8 @@ namespace CriminalsProgram.Services
 
     public static void AddCriminal()
     {
-      Criminal newCriminal = CriminalView.PromptCriminal();
+      Criminal newCriminal = CriminalView.PromptCriminal(nextId);
+      nextId++;
 
       database.AddCriminal(newCriminal);
       LogSuccess();

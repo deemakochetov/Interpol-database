@@ -8,7 +8,6 @@ namespace CriminalsProgram.Repositories
   public class AliasDatabase
   {
     private List<Alias> _aliases;
-    private int nextId;
     private string fileName;
 
 
@@ -22,8 +21,6 @@ namespace CriminalsProgram.Repositories
     // Add a new alias to the database
     public void AddAlias(Alias alias)
     {
-      alias.Id = nextId;
-      nextId++;
       _aliases.Add(alias);
       SaveAliases();
     }

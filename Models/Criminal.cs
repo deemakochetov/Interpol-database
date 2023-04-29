@@ -1,6 +1,6 @@
 using System;
 using CriminalsProgram.Models.Helpers;
-using CriminalsProgram.Models.Repositories;
+using CriminalsProgram.Interfaces;
 
 namespace CriminalsProgram.Models.Main
 {
@@ -33,35 +33,19 @@ namespace CriminalsProgram.Models.Main
     public byte DangerLevel { get; set; }
     public DateOnly DateOfBirth { get; set; }
 
-    public Criminal(dynamic obj)
+    public Criminal()
     {
-      Id = obj.id;
-      FirstName = obj.firstName;
-      LastName = obj.lastName;
-      Nickname = obj.nickname;
-      Height = obj.height;
-      Weight = obj.weight;
-      HairColor = obj.hairColor;
-      EyesColor = obj.eyesColor;
-      Nationality = obj.nationality;
-      BirthPlace = obj.birthPlace;
-      LastResidencePlace = obj.lastResidencePlace;
-      CurrentLocation = obj.currentLocation;
-      Languages = obj.languages;
-      CriminalJob = obj.criminalJob;
-      LastCase = obj.lastCase;
-      Aliases = obj.aliases;
-      Appearance = obj.appearance;
-      Gender = obj.gender;
-      Description = obj.description;
-      Status = obj.status;
-      DateOfBirth = obj.dateOfBirth;
     }
 
     public string GetReview()
     {
       return $"Id: {Id}\nІм'я: {FirstName}\nПрізвище: {LastName}\nЗріст: {Height}\nВага: {Weight}\nКолір волосся: {HairColor}\nКолір очей: {EyesColor}\nНаціональність: {Nationality}\nМісце народження: {BirthPlace}\nОстаннє місце проживання: {LastResidencePlace}\nПоточне місце знаходження: {CurrentLocation}\nЗнання мов: {Languages}\nКримінальне заняття: {CriminalJob}\nОстанній злочин: {LastCase}\nУгруповання: {Aliases}\nЗовнішній вигляд: {Appearance}\nГендер: {Gender}\nОпис злочину: {Description}\nСтатус: {Status}\nДата народження: {DateOfBirth}";
     }
+
+    // public static CriminalBuilder Builder()
+    // {
+    //   return new CriminalBuilder();
+    // }
   }
 
 }

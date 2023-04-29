@@ -1,8 +1,4 @@
-using System;
 using CriminalsProgram.Models.Main;
-using CriminalsProgram.Models.Helpers;
-using CriminalsProgram.Services;
-using System.Collections.Generic;
 using static CriminalsProgram.Views.GeneralView;
 
 namespace CriminalsProgram.Views
@@ -10,11 +6,10 @@ namespace CriminalsProgram.Views
   public static class AliasView
   {
 
-    public static Alias PromptAlias()
+    public static Alias PromptAlias(int id)
     {
-      dynamic aliasObj = new { };
-      aliasObj.name = PromptString("Назва: ");
-      Alias newAlias = new Alias(aliasObj);
+      string name = PromptString("Назва: ");
+      Alias newAlias = new Alias(id, name);
       return newAlias;
     }
     public static Alias PromptUpdate(Alias aliasToUpdate)
@@ -44,7 +39,7 @@ namespace CriminalsProgram.Views
     public static List<Alias> PromptAliases(List<Alias> aliases, List<Alias> chosenAliases)
     {
       Log("Оберіть угруповання:");
-      int counter = 0;
+      int counter = 1;
       Dictionary<string, Alias> aliasesOptions = new Dictionary<string, Alias>();
 
       foreach (Alias alias in aliases)

@@ -13,6 +13,7 @@ namespace CriminalsProgram.Menus
   {
     public static void ShowMenu()
     {
+      Console.Clear();
       List<Criminal> criminals = CriminalService.GetActiveCriminals();
       Log("Головне меню");
       Log("1. Показати усіх діючих злочинців");

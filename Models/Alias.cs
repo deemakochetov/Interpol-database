@@ -1,6 +1,6 @@
 using System;
 using CriminalsProgram.Models.Helpers;
-using CriminalsProgram.Models.Repositories;
+using CriminalsProgram.Interfaces;
 
 namespace CriminalsProgram.Models.Main
 {
@@ -9,10 +9,10 @@ namespace CriminalsProgram.Models.Main
     public int Id { get; set; }
     public string Name { get; set; }
 
-    public Alias(dynamic obj)
+    public Alias(int id, string name)
     {
-      Id = obj.id;
-      Name = obj.name;
+      Id = id;
+      Name = name;
     }
 
     public string GetReview()

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using CriminalsProgram.Models.Main;
 using CriminalsProgram.Models.Helpers;
-using CriminalsProgram.Models.Repositories;
+using CriminalsProgram.Interfaces;
 
 
 namespace CriminalsProgram.Repositories
@@ -10,7 +10,6 @@ namespace CriminalsProgram.Repositories
   {
     private List<Criminal> activeCriminals;
     private List<Criminal> archivedCriminals;
-    private int nextId;
     private string fileName;
 
     public CriminalDatabase()
@@ -33,8 +32,6 @@ namespace CriminalsProgram.Repositories
 
     public void AddCriminal(Criminal criminal)
     {
-      criminal.Id = nextId;
-      nextId++;
       if (criminal.Status == CriminalStatus.Dead)
       {
         archivedCriminals.Add(criminal);

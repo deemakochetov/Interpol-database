@@ -4,36 +4,60 @@ using CriminalsProgram.Models.Helpers;
 using CriminalsProgram.Services;
 using static CriminalsProgram.Views.GeneralView;
 using static CriminalsProgram.Views.AliasView;
+using CriminalsProgram.Interfaces;
 
 namespace CriminalsProgram.Views
 {
   public static class CriminalView
   {
-    public static Criminal PromptCriminal()
+    public static Criminal PromptCriminal(int id)
     {
-      dynamic criminalObj = new { };
       Log("Додати нового злочинця:");
-      criminalObj.firstName = PromptString("Ім'я: ");
-      criminalObj.lastName = PromptString("Прізвище: ");
-      criminalObj.nickname = PromptString("Кличка: ");
-      criminalObj.height = PromptInt("Зріст: ");
-      criminalObj.weight = PromptInt("Вага: ");
-      criminalObj.hairColor = PromptString("Колір волосся: ");
-      criminalObj.eyesColor = PromptString("Колір очей: ");
-      criminalObj.nationality = PromptString("Національність: ");
-      criminalObj.birthPlace = PromptString("Місце народження: ");
-      criminalObj.lastResidencePlace = PromptString("Останнє місце проживання: ");
-      criminalObj.currentLocation = PromptString("Поточне місце знаходження: ");
-      criminalObj.languages = PromptString("Знання мов: ");
-      criminalObj.criminalJob = PromptString("Кримінальне заняття: ");
-      criminalObj.lastCase = PromptString("Останній злочин: ");
-      criminalObj.appearance = PromptString("Зовнішній вигляд: ");
-      criminalObj.gender = PromptGender();
-      criminalObj.dateOfBirth = PromptBirthDate();
-      criminalObj.description = PromptString("Опис злочину: ");
-      criminalObj.status = PromptStatus();
-      criminalObj.aliases = AliasService.PromptAliases();
-      Criminal newCriminal = new Criminal(criminalObj);
+      string firstName = PromptString("Ім'я: ");
+      string lastName = PromptString("Прізвище: ");
+      string nickname = PromptString("Кличка: ");
+      int height = PromptInt("Зріст: ");
+      int weight = PromptInt("Вага: ");
+      string hairColor = PromptString("Колір волосся: ");
+      string eyesColor = PromptString("Колір очей: ");
+      string nationality = PromptString("Національність: ");
+      string birthPlace = PromptString("Місце народження: ");
+      string lastResidencePlace = PromptString("Останнє місце проживання: ");
+      string currentLocation = PromptString("Поточне місце знаходження: ");
+      string languages = PromptString("Знання мов: ");
+      string criminalJob = PromptString("Кримінальне заняття: ");
+      string lastCase = PromptString("Останній злочин: ");
+      string appearance = PromptString("Зовнішній вигляд: ");
+      Gender gender = PromptGender();
+      DateOnly dateOfBirth = PromptBirthDate();
+      string description = PromptString("Опис злочину: ");
+      CriminalStatus status = PromptStatus();
+      List<Alias> aliases = AliasService.PromptAliases();
+      var criminalBuilder = new CriminalBuilder();
+
+      var newCriminal = criminalBuilder
+                      .WithId(id)
+                      .WithFirstName(firstName)
+                      .WithLastName(lastName)
+                      .WithNickname(nickname)
+                      .WithHeight(height)
+                      .WithWeight(weight)
+                      .WithHairColor(hairColor)
+                      .WithEyesColor(eyesColor)
+                      .WithNationality(nationality)
+                      .WithBirthPlace(birthPlace)
+                      .WithLastResidencePlace(lastResidencePlace)
+                      .WithCurrentLocation(currentLocation)
+                      .WithLanguages(languages)
+                      .WithCriminalJob(criminalJob)
+                      .WithLastCase(lastCase)
+                      .WithAliases(aliases)
+                      .WithAppearance(appearance)
+                      .WithGender(gender)
+                      .WithDescription(description)
+                      .WithStatus(status)
+                      .WithDateOfBirth(dateOfBirth)
+                      .Build();
       return newCriminal;
     }
 

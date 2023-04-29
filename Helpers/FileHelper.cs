@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace CriminalsProgram.Models.Main
 {
@@ -24,20 +25,24 @@ namespace CriminalsProgram.Models.Main
         Console.WriteLine("Error writing to file: " + ex.Message);
       }
     }
-
+    public class JsonFromat
+    {
+      public List<Criminal> ActiveCriminals { get; set; }
+      public List<Criminal> ArchivedCriminals { get; set; }
+    }
     public static void LoadCriminals(string fileName, out List<Criminal> activeCriminals, out List<Criminal> archivedCriminals)
     {
       try
       {
         // Read the JSON data from the file
         string jsonData = File.ReadAllText(fileName);
+        // Console.WriteLine(jsonData);
 
         // Deserialize the JSON data to an object
-        var data = JsonSerializer.Deserialize<dynamic>(jsonData);
+        JsonFromat data = JsonSerializer.Deserialize<JsonFromat>(jsonData);
 
-        // Extract the criminal arrays from the object
-        activeCriminals = JsonSerializer.Deserialize<Criminal[]>(data?.ActiveCriminals.ToString());
-        archivedCriminals = JsonSerializer.Deserialize<Criminal[]>(data?.ArchivedCriminals.ToString());
+        activeCriminals = data.ActiveCriminals;
+        archivedCriminals = data.ArchivedCriminals;
       }
       catch (Exception ex)
       {
@@ -76,7 +81,6 @@ namespace CriminalsProgram.Models.Main
         // Deserialize the JSON data to an object
         var data = JsonSerializer.Deserialize<dynamic>(jsonData);
 
-        // Extract the criminal arrays from the object
         aliases = JsonSerializer.Deserialize<Criminal[]>(data?.Aliases.ToString());
       }
       catch (Exception ex)

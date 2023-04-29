@@ -1,0 +1,22 @@
+# C# compiled files
+bin/
+obj/
+
+# NuGet packages
+*.nuget.cache
+*.dll
+*.exe
+*.pdb
+*.user
+*.apsimx
+packages/
+*.nupkg
+*.snupkg
+*.dotnet.new.tool
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+[Oo]bj/

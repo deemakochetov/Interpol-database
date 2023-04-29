@@ -2,7 +2,7 @@ using System;
 using CriminalsProgram.Models.Main;
 using CriminalsProgram.Models.Helpers;
 using CriminalsProgram.Services;
-using CriminalsProgram.Models.Repositories;
+using CriminalsProgram.Interfaces;
 
 namespace CriminalsProgram.Views
 {
@@ -48,7 +48,7 @@ namespace CriminalsProgram.Views
     }
     public static int PromptInt(string message)
     {
-      Log(message);
+      Print(message);
       string input = Console.ReadLine();
       int number;
       if (int.TryParse(input, out number))
@@ -73,7 +73,7 @@ namespace CriminalsProgram.Views
       }
       else
       {
-        Print("Невірне ID обʼєкта");
+        Log("Невірне ID обʼєкта");
         return PromptId();
       }
     }
@@ -89,7 +89,7 @@ namespace CriminalsProgram.Views
       }
       else
       {
-        Print("Некоректний формат");
+        Log("Некоректний формат");
         return PromptBirthDate();
       }
     }
