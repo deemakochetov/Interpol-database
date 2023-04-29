@@ -1,23 +1,31 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CriminalsProgram.Models.Helpers;
+using CriminalsProgram.Models.Main;
 
-namespace CriminalsProgram.Models.Main
+namespace CriminalsProgram.Repositories
 {
   public class AliasDatabase
   {
-    private readonly List<Alias> _aliases;
+    private List<Alias> _aliases;
+    private int nextId;
+    private string fileName;
+
 
     public AliasDatabase()
     {
       _aliases = new List<Alias>();
+      fileName = "aliases.json";
+      LoadAliases();
     }
 
     // Add a new alias to the database
     public void AddAlias(Alias alias)
     {
+      alias.Id = nextId;
+      nextId++;
       _aliases.Add(alias);
+      SaveAliases();
     }
 
     // Retrieve an alias by its ID
@@ -34,18 +42,30 @@ namespace CriminalsProgram.Models.Main
       {
         _aliases[index] = alias;
       }
+      SaveAliases();
     }
 
     // Remove an alias from the database
     public void RemoveAlias(Alias alias)
     {
       _aliases.Remove(alias);
+      SaveAliases();
     }
 
     // Get a list of all aliases in the database
     public List<Alias> GetAllAliases()
     {
       return _aliases.ToList();
+    }
+
+    public void SaveAliases()
+    {
+      FileHelper.SaveAliases(fileName, _aliases);
+    }
+
+    private void LoadAliases()
+    {
+      FileHelper.LoadAliases(fileName, out _aliases);
     }
   }
 }

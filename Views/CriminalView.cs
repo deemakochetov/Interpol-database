@@ -2,6 +2,8 @@ using System;
 using CriminalsProgram.Models.Main;
 using CriminalsProgram.Models.Helpers;
 using CriminalsProgram.Services;
+using static CriminalsProgram.Views.GeneralView;
+using static CriminalsProgram.Views.AliasView;
 
 namespace CriminalsProgram.Views
 {
@@ -28,60 +30,33 @@ namespace CriminalsProgram.Views
 
     public static Criminal PromptCriminal()
     {
+      dynamic criminalObj = new { };
       Log("Додати нового злочинця:");
-      string firstName = PromptString("Ім'я: ");
-      string lastName = PromptString("Прізвище: ");
-      string nickname = PromptString("Кличка: ");
-      int height = PromptInt("Зріст: ");
-      int weight = PromptInt("Вага: ");
-      string hairColor = PromptString("Колір волосся: ");
-      string eyesColor = PromptString("Колір очей: ");
-      string nationality = PromptString("Національність: ");
-      string birthPlace = PromptString("Місце народження: ");
-      string lastResidencePlace = PromptString("Останнє місце проживання: ");
-      string currentLocation = PromptString("Поточне місце знаходження: ");
-      string languages = PromptString("Знання мов: ");
-      string criminalJob = PromptString("Кримінальне заняття: ");
-      string lastCase = PromptString("Останній злочин: ");
-      string appearance = PromptString("Зовнішній вигляд: ");
-      Gender gender = PromptGender();
-      DateOnly dateOfBirth = PromptBirthDate();
-      string description = PromptString("Опис злочину: ");
-      CriminalStatus status = PromptStatus();
-      List<Alias> aliases = PromptAliases();
-      Criminal newCriminal = new Criminal(0, firstName, lastName, dateOfBirth, gender, description, status);
+      criminalObj.firstName = PromptString("Ім'я: ");
+      criminalObj.lastName = PromptString("Прізвище: ");
+      criminalObj.nickname = PromptString("Кличка: ");
+      criminalObj.height = PromptInt("Зріст: ");
+      criminalObj.weight = PromptInt("Вага: ");
+      criminalObj.hairColor = PromptString("Колір волосся: ");
+      criminalObj.eyesColor = PromptString("Колір очей: ");
+      criminalObj.nationality = PromptString("Національність: ");
+      criminalObj.birthPlace = PromptString("Місце народження: ");
+      criminalObj.lastResidencePlace = PromptString("Останнє місце проживання: ");
+      criminalObj.currentLocation = PromptString("Поточне місце знаходження: ");
+      criminalObj.languages = PromptString("Знання мов: ");
+      criminalObj.criminalJob = PromptString("Кримінальне заняття: ");
+      criminalObj.lastCase = PromptString("Останній злочин: ");
+      criminalObj.appearance = PromptString("Зовнішній вигляд: ");
+      criminalObj.gender = PromptGender();
+      criminalObj.dateOfBirth = PromptBirthDate();
+      criminalObj.description = PromptString("Опис злочину: ");
+      criminalObj.status = PromptStatus();
+      criminalObj.aliases = PromptAliases();
+      Criminal newCriminal = new Criminal(criminalObj);
       return newCriminal;
     }
 
-    public static void LogSuccess()
-    {
-      Console.WriteLine("Операція успішно виконана!");
-    }
-    public static void Log(string message)
-    {
-      Console.WriteLine(message);
-    }
-    public static string PromptString(string message)
-    {
-      Console.Write(message);
-      string input = Console.ReadLine();
-      return input;
-    }
-    public static int PromptInt(string message)
-    {
-      Log(message);
-      string input = Console.ReadLine();
-      int number;
-      if (int.TryParse(input, out number))
-      {
-        return number;
-      }
-      else
-      {
-        Log("Значення повинне бути числом");
-        return PromptInt(message);
-      }
-    }
+
 
     public static CriminalStatus PromptStatus()
     {
@@ -105,27 +80,7 @@ namespace CriminalsProgram.Views
       }
     }
 
-    public static List<Alias> PromptAliases()
-    {
-      Log("Оберіть угруповання:");
-      Log("1. Діючий");
-      Log("2. Виправлений");
-      Log("3. Створити нове");
-      Log("Оберіть опцію: ");
-      int statusOption = int.Parse(Console.ReadLine());
-      switch (statusOption)
-      {
-        case 1:
-          return CriminalStatus.Active;
-        case 2:
-          return CriminalStatus.Archived;
-        case 3:
-          return CriminalStatus.Dead;
-        default:
-          Log("Некорректний ввід");
-          return PromptStatus();
-      }
-    }
+
 
     public static Gender PromptGender()
     {

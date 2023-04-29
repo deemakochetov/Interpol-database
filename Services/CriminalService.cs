@@ -2,6 +2,7 @@ using CriminalsProgram.Models.Main;
 using CriminalsProgram.Models.Helpers;
 using CriminalsProgram.Repositories;
 using CriminalsProgram.Views;
+using static CriminalsProgram.Views.GeneralView;
 
 namespace CriminalsProgram.Services
 {
@@ -109,7 +110,7 @@ namespace CriminalsProgram.Services
       Criminal newCriminal = CriminalView.PromptCriminal();
 
       database.AddCriminal(newCriminal);
-      CriminalView.LogSuccess();
+      LogSuccess();
     }
 
     public static void UpdateCriminal()
@@ -119,14 +120,14 @@ namespace CriminalsProgram.Services
 
       if (criminalToUpdate != null)
       {
-        CriminalView.Log($"Редагування злочинця {criminalToUpdate.FirstName} {criminalToUpdate.LastName} (ID: {criminalToUpdate.Id})");
+        Log($"Редагування злочинця {criminalToUpdate.FirstName} {criminalToUpdate.LastName} (ID: {criminalToUpdate.Id})");
         Criminal updatedCriminal = CriminalView.PromptUpdate(criminalToUpdate);
 
         database.UpdateCriminal(id, updatedCriminal);
       }
       else
       {
-        CriminalView.Log("Not found");
+        Log("Not found");
       }
     }
   }

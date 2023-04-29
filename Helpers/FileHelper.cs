@@ -47,5 +47,43 @@ namespace CriminalsProgram.Models.Main
 
       }
     }
+
+    public static void SaveAliases(string fileName, List<Alias> aliases)
+    {
+      try
+      {
+        var data = new { Aliases = aliases };
+
+        // Serialize the data to JSON format
+        string jsonData = JsonSerializer.Serialize(data);
+
+        // Write the JSON data to the file
+        File.WriteAllText(fileName, jsonData);
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine("Error writing to file: " + ex.Message);
+      }
+    }
+
+    public static void LoadAliases(string fileName, out List<Alias> aliases)
+    {
+      try
+      {
+        // Read the JSON data from the file
+        string jsonData = File.ReadAllText(fileName);
+
+        // Deserialize the JSON data to an object
+        var data = JsonSerializer.Deserialize<dynamic>(jsonData);
+
+        // Extract the criminal arrays from the object
+        aliases = JsonSerializer.Deserialize<Criminal[]>(data?.Aliases.ToString());
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine("Error reading from file: " + ex.Message);
+        aliases = new List<Alias>(new Alias[0]);
+      }
+    }
   }
 }
