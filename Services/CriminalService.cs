@@ -22,42 +22,29 @@ namespace CriminalsProgram.Services
       return criminals.Where(criminal => criminal.LastName == surname).ToList();
     }
 
-    public static List<Criminal> FilterCriminals(List<Criminal> criminals, string filterType, string filterValue)
+    public static List<Criminal> FilterByEyesColor(List<Criminal> criminals, string eyesColor)
     {
-      List<Criminal> filteredCriminals = new List<Criminal>();
-
-      foreach (Criminal criminal in criminals)
-      {
-        switch (filterType)
-        {
-          case "gender":
-            if (criminal.Gender.ToString() == filterValue)
-            {
-              filteredCriminals.Add(criminal);
-            }
-            break;
-          case "birth":
-            if (criminal.DateOfBirth == DateOnly.Parse(filterValue))
-            {
-              filteredCriminals.Add(criminal);
-            }
-            break;
-          case "level":
-            if (criminal.DangerLevel == byte.Parse(filterValue))
-            {
-              filteredCriminals.Add(criminal);
-            }
-            break;
-        }
-      }
-      // && (filter == "" || criminal.Description.Contains(filter) || criminal.Age.ToString() == filter || criminal.Status.ToString().Contains(filter))
-      return filteredCriminals;
+      return criminals.Where(criminal => criminal.EyesColor == eyesColor).ToList();
     }
 
-    public static void ShowActiveCriminals()
+    public static List<Criminal> FilterByHairColor(List<Criminal> criminals, string hairColor)
     {
-      List<Criminal> activeCriminals = database.GetActiveCriminals();
-      ListObjects<Criminal>(activeCriminals);
+      return criminals.Where(criminal => criminal.HairColor == hairColor).ToList();
+    }
+
+    public static List<Criminal> FilterByNationality(List<Criminal> criminals, string nationality)
+    {
+      return criminals.Where(criminal => criminal.Nationality == nationality).ToList();
+    }
+    public static List<Criminal> FilterByCriminalJob(List<Criminal> criminals, string criminalJob)
+    {
+      return criminals.Where(criminal => criminal.CriminalJob == criminalJob).ToList();
+    }
+    public static List<Criminal> FilterByAge(List<Criminal> criminals, int age)
+    {
+      int currentYear = DateTime.Now.Year;
+      int filterBirthYear = currentYear - age;
+      return criminals.Where(criminal => criminal.DateOfBirth.Year == filterBirthYear).ToList();
     }
     public static List<Criminal> GetActiveCriminals()
     {
@@ -65,16 +52,17 @@ namespace CriminalsProgram.Services
       return activeCriminals;
     }
 
-    public static void ShowArchivedCriminals()
-    {
-      List<Criminal> archivedCriminals = database.GetArchivedCriminals();
-      ListObjects<Criminal>(archivedCriminals);
-
-    }
-    public static List<Criminal> GetArchivedCriminals()
+    public static List<Criminal> GetAllCriminals()
     {
       List<Criminal> activeCriminals = database.GetActiveCriminals();
-      return activeCriminals;
+      List<Criminal> archivedCriminals = database.GetArchivedCriminals();
+      return activeCriminals.Concat(archivedCriminals).ToList();
+    }
+
+    public static List<Criminal> GetArchivedCriminals()
+    {
+      List<Criminal> archivedCriminals = database.GetArchivedCriminals();
+      return archivedCriminals;
     }
 
     public static List<Criminal> SearchCriminals(string query)
@@ -86,6 +74,7 @@ namespace CriminalsProgram.Services
       {
         if (criminal.FirstName.ToLower().Contains(query.ToLower()) ||
         criminal.LastName.ToLower().Contains(query.ToLower()) ||
+        criminal.CriminalJob.ToLower().Contains(query.ToLower()) ||
             criminal.Description.ToLower().Contains(query.ToLower())
             )
         {
@@ -95,15 +84,15 @@ namespace CriminalsProgram.Services
 
       return results;
     }
-
-
-    public static void AddCriminal()
+    public static int getNextId()
     {
-      Criminal newCriminal = CriminalView.PromptCriminal(nextId);
       nextId++;
+      return nextId;
+    }
 
+    public static void AddCriminal(Criminal newCriminal)
+    {
       database.AddCriminal(newCriminal);
-      LogSuccess();
     }
 
     public static void UpdateCriminal()

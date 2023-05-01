@@ -20,7 +20,7 @@ namespace CriminalsProgram.Views
         foreach (T instance in objects)
         {
           Log(instance.GetReview());
-          Log("--------------------------");
+          LogSeparator();
         }
       }
       Log("Натисніть будь-яку клавішу для продовження...");
@@ -60,6 +60,11 @@ namespace CriminalsProgram.Views
         Log("Значення повинне бути числом");
         return PromptInt(message);
       }
+    }
+
+    public static void LogSeparator()
+    {
+      Log("--------------------------");
     }
 
     public static int PromptId()

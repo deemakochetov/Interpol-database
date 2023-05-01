@@ -10,6 +10,106 @@ namespace CriminalsProgram.Views
 {
   public static class CriminalView
   {
+    public static void AddCriminal()
+    {
+      int nextId = CriminalService.getNextId();
+      Criminal newCriminal = CriminalView.PromptCriminal(nextId);
+
+      CriminalService.AddCriminal(newCriminal);
+      LogSuccess();
+    }
+    public static void ShowActiveCriminals()
+    {
+      List<Criminal> activeCriminals = CriminalService.GetActiveCriminals();
+      ListObjects<Criminal>(activeCriminals);
+    }
+    public static void ShowArchivedCriminals()
+    {
+      List<Criminal> archivedCriminals = CriminalService.GetArchivedCriminals();
+      ListObjects<Criminal>(archivedCriminals);
+
+    }
+    public static void ShowSearchMenu()
+    {
+      Console.Write("Введіть пошуковий запит: ");
+      string searchQuery = Console.ReadLine();
+      List<Criminal> searchResults = CriminalService.SearchCriminals(searchQuery);
+      if (searchResults.Count == 0)
+      {
+        Log("Збігів не знайдено.");
+      }
+      else
+      {
+        Log($"Знайдено {searchResults.Count} збігів:");
+        foreach (Criminal criminal in searchResults)
+        {
+          Log(criminal.GetReview());
+          LogSeparator();
+        }
+      }
+      Log("Натисніть будь-яку клавішу для продовження...");
+      Console.ReadKey();
+    }
+    public static void ShowFilterMenu()
+    {
+      List<Criminal> criminals = CriminalService.GetAllCriminals();
+      Console.Clear();
+      Log("Фільтрування злочинців");
+      Log("1. Фільтрувати за імʼям");
+      Log("2. Фільтрувати за прізвищем");
+      Log("3. Фільтрувати за коліром волосся");
+      Log("4. Фільтрувати за коліром очей");
+      Log("5. Фільтрувати за національністю");
+      Log("6. Фільтрувати за кримінальним заняттям");
+      Log("7. Фільтрувати за роком народження");
+      Log("8. Повернутися до меню");
+
+      string filterChoice = PromptString("Виберіть опцію: ");
+      switch (filterChoice)
+      {
+        case "1":
+          string nameFilter = PromptString("Введіть ім'я для фільтрування: ");
+          List<Criminal> filteredByName = CriminalService.FilterByName(CriminalService.GetActiveCriminals(), nameFilter);
+          ListObjects<Criminal>(filteredByName);
+          break;
+        case "2":
+          string surnameFilter = PromptString("Введіть прізвище для фільтрування: ");
+          List<Criminal> filteredBySurname = CriminalService.FilterBySurname(criminals, surnameFilter);
+          ListObjects<Criminal>(filteredBySurname);
+          break;
+        case "3":
+          string hairColorFilter = PromptString("Введіть колір волосся для фільтрування: ");
+          List<Criminal> filteredByHairColor = CriminalService.FilterByHairColor(CriminalService.GetActiveCriminals(), hairColorFilter);
+          ListObjects<Criminal>(filteredByHairColor);
+          break;
+        case "4":
+          string eyesColorFilter = PromptString("Введіть колір очей для фільтрування: ");
+          List<Criminal> filteredByEyesColor = CriminalService.FilterByEyesColor(criminals, eyesColorFilter);
+          ListObjects<Criminal>(filteredByEyesColor);
+          break;
+        case "5":
+          string nationalityFilter = PromptString("Введіть національність для фільтрування: ");
+          List<Criminal> filteredByNationality = CriminalService.FilterByNationality(criminals, nationalityFilter);
+          ListObjects<Criminal>(filteredByNationality);
+          break;
+        case "6":
+          string criminalJobFilter = PromptString("Введіть кримінальне заняття для фільтрування: ");
+          List<Criminal> filteredByCriminalJob = CriminalService.FilterByCriminalJob(criminals, criminalJobFilter);
+          ListObjects<Criminal>(filteredByCriminalJob);
+          break;
+        case "7":
+          int ageFilter = PromptInt("Введіть вік для фільтрування: ");
+          List<Criminal> filteredByAge = CriminalService.FilterByAge(criminals, ageFilter);
+          ListObjects<Criminal>(filteredByAge);
+          break;
+        default:
+          Log("Невірний вибір опції. Натисніть будь-яку клавішу для продовження...");
+          Console.ReadKey();
+          ShowFilterMenu();
+          break;
+      }
+
+    }
     public static Criminal PromptCriminal(int id)
     {
       Log("Додати нового злочинця:");

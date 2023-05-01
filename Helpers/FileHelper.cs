@@ -25,10 +25,15 @@ namespace CriminalsProgram.Models.Main
         Console.WriteLine("Error writing to file: " + ex.Message);
       }
     }
-    public class JsonFromat
+    public class JsonFormatCriminals
     {
       public List<Criminal> ActiveCriminals { get; set; }
       public List<Criminal> ArchivedCriminals { get; set; }
+    }
+
+    public class JsonFormatAliases
+    {
+      public List<Alias> Aliases { get; set; }
     }
     public static void LoadCriminals(string fileName, out List<Criminal> activeCriminals, out List<Criminal> archivedCriminals)
     {
@@ -39,7 +44,7 @@ namespace CriminalsProgram.Models.Main
         // Console.WriteLine(jsonData);
 
         // Deserialize the JSON data to an object
-        JsonFromat data = JsonSerializer.Deserialize<JsonFromat>(jsonData);
+        JsonFormatCriminals data = JsonSerializer.Deserialize<JsonFormatCriminals>(jsonData);
 
         activeCriminals = data.ActiveCriminals;
         archivedCriminals = data.ArchivedCriminals;
@@ -79,9 +84,9 @@ namespace CriminalsProgram.Models.Main
         string jsonData = File.ReadAllText(fileName);
 
         // Deserialize the JSON data to an object
-        var data = JsonSerializer.Deserialize<dynamic>(jsonData);
+        JsonFormatAliases data = JsonSerializer.Deserialize<JsonFormatAliases>(jsonData);
 
-        aliases = JsonSerializer.Deserialize<Criminal[]>(data?.Aliases.ToString());
+        aliases = data.Aliases;
       }
       catch (Exception ex)
       {
