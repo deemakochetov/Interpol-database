@@ -66,7 +66,11 @@ namespace CriminalsProgram.Views
     {
       Log("--------------------------");
     }
-
+    public static void PromptClick()
+    {
+      Log("Натисніть будь-яку клавішу для продовження...");
+      Console.ReadKey();
+    }
     public static int PromptId()
     {
       Print("Введіть ID обʼєкта для редагування: ");

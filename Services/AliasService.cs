@@ -9,13 +9,20 @@ namespace CriminalsProgram.Services
 {
   static class AliasService
   {
-    private static int nextId = 0;
+    private static int nextId = -1;
     private static AliasDatabase database = new AliasDatabase();
 
     public static int getNextId()
     {
+      if (nextId == -1) nextId = getLatestId();
       nextId++;
       return nextId;
+    }
+    public static int getLatestId()
+    {
+      List<Alias> aliases = GetAllAliases();
+      int latestId = aliases.Last().Id;
+      return latestId;
     }
     public static void AddAlias(Alias newAlias)
     {

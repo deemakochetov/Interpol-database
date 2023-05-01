@@ -18,6 +18,7 @@ namespace CriminalsProgram.Views
 
       AliasService.AddAlias(newAlias);
       LogSuccess();
+      PromptClick();
     }
     public static void UpdateAlias()
     {
@@ -102,12 +103,5 @@ namespace CriminalsProgram.Views
       }
 
     }
-
-
-
-
-
-
-
   }
 }

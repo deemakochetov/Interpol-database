@@ -8,7 +8,7 @@ namespace CriminalsProgram.Services
 {
   static class CriminalService
   {
-    private static int nextId = 0;
+    private static int nextId = -1;
 
     private static CriminalDatabase database = new CriminalDatabase();
 
@@ -86,8 +86,16 @@ namespace CriminalsProgram.Services
     }
     public static int getNextId()
     {
+      if (nextId == -1) nextId = getLatestId();
       nextId++;
       return nextId;
+    }
+    public static int getLatestId()
+    {
+      List<Criminal> activeCriminals = GetActiveCriminals();
+      List<Criminal> archivedCriminals = GetArchivedCriminals();
+      int latestId = Math.Max(activeCriminals.Last().Id, archivedCriminals.Last().Id);
+      return latestId;
     }
 
     public static void AddCriminal(Criminal newCriminal)
