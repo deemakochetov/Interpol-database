@@ -1,10 +1,41 @@
 using CriminalsProgram.Models.Main;
+using CriminalsProgram.Services;
 using static CriminalsProgram.Views.GeneralView;
 
 namespace CriminalsProgram.Views
 {
   public static class AliasView
   {
+    public static void ShowAliases()
+    {
+      List<Alias> aliases = AliasService.GetAllAliases();
+      ListObjects<Alias>(aliases);
+    }
+    public static void AddAlias()
+    {
+      int nextId = AliasService.getNextId();
+      Alias newAlias = AliasView.PromptAlias(nextId);
+
+      AliasService.AddAlias(newAlias);
+      LogSuccess();
+    }
+    public static void UpdateAlias()
+    {
+      int id = PromptId();
+      Alias aliasToUpdate = AliasService.GetAliasById(id); // do the same for criminal
+
+      if (aliasToUpdate != null)
+      {
+        Log($"Редагування угруповання {aliasToUpdate.Name} (ID: {aliasToUpdate.Id})");
+        Alias updatedAlias = AliasView.PromptUpdate(aliasToUpdate);
+
+        AliasService.UpdateAlias(updatedAlias); // consider passing id as argument
+      }
+      else
+      {
+        Log("Not found");
+      }
+    }
 
     public static Alias PromptAlias(int id)
     {
@@ -36,8 +67,10 @@ namespace CriminalsProgram.Views
       return PromptUpdate(aliasToUpdate);
     }
 
-    public static List<Alias> PromptAliases(List<Alias> aliases, List<Alias> chosenAliases)
+    public static List<Alias> PromptAliases(List<Alias> aliases = null, List<Alias> chosenAliases = null)
     {
+      if (aliases == null) aliases = AliasService.GetAllAliases();
+      if (chosenAliases == null) chosenAliases = new List<Alias>();
       Log("Оберіть угруповання:");
       int counter = 1;
       Dictionary<string, Alias> aliasesOptions = new Dictionary<string, Alias>();

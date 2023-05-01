@@ -25,13 +25,13 @@ namespace CriminalsProgram.Menus
       switch (choice)
       {
         case "1":
-          AliasService.ShowAliases();
+          AliasView.ShowAliases();
           break;
         case "2":
-          AliasService.AddAlias();
+          AliasView.AddAlias();
           break;
         case "3":
-          AliasService.UpdateAlias();
+          AliasView.UpdateAlias();
           break;
         case "4":
           return;

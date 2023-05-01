@@ -18,6 +18,23 @@ namespace CriminalsProgram.Views
       CriminalService.AddCriminal(newCriminal);
       LogSuccess();
     }
+    public static void UpdateCriminal()
+    {
+      int id = PromptId();
+      Criminal criminalToUpdate = CriminalService.GetActiveCriminals().Find(c => c.Id == id);
+
+      if (criminalToUpdate != null)
+      {
+        Log($"Редагування злочинця {criminalToUpdate.FirstName} {criminalToUpdate.LastName} (ID: {criminalToUpdate.Id})");
+        Criminal updatedCriminal = CriminalView.PromptUpdate(criminalToUpdate);
+
+        CriminalService.UpdateCriminal(id, updatedCriminal);
+      }
+      else
+      {
+        Log("Not found");
+      }
+    }
     public static void ShowActiveCriminals()
     {
       List<Criminal> activeCriminals = CriminalService.GetActiveCriminals();
@@ -132,7 +149,7 @@ namespace CriminalsProgram.Views
       DateOnly dateOfBirth = PromptBirthDate();
       string description = PromptString("Опис злочину: ");
       CriminalStatus status = PromptStatus();
-      List<Alias> aliases = AliasService.PromptAliases();
+      List<Alias> aliases = AliasView.PromptAliases();
       var criminalBuilder = new CriminalBuilder();
 
       var newCriminal = criminalBuilder
@@ -324,7 +341,7 @@ namespace CriminalsProgram.Views
           criminal.DateOfBirth = dateOfBirth;
           break;
         case 20:
-          List<Alias> aliases = AliasService.PromptAliases();
+          List<Alias> aliases = AliasView.PromptAliases();
           criminal.Aliases = aliases;
           break;
         case 21:

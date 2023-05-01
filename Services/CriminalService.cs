@@ -94,23 +94,11 @@ namespace CriminalsProgram.Services
     {
       database.AddCriminal(newCriminal);
     }
-
-    public static void UpdateCriminal()
+    public static void UpdateCriminal(int id, Criminal newCriminal)
     {
-      int id = PromptId();
-      Criminal criminalToUpdate = database.GetActiveCriminals().Find(c => c.Id == id);
-
-      if (criminalToUpdate != null)
-      {
-        Log($"Редагування злочинця {criminalToUpdate.FirstName} {criminalToUpdate.LastName} (ID: {criminalToUpdate.Id})");
-        Criminal updatedCriminal = CriminalView.PromptUpdate(criminalToUpdate);
-
-        database.UpdateCriminal(id, updatedCriminal);
-      }
-      else
-      {
-        Log("Not found");
-      }
+      database.UpdateCriminal(id, newCriminal);
     }
+
+
   }
 }

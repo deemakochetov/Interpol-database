@@ -44,7 +44,7 @@ namespace CriminalsProgram.Menus
           CriminalView.ShowSearchMenu();
           break;
         case "6":
-          CriminalService.UpdateCriminal();
+          CriminalView.UpdateCriminal();
           break;
         case "7":
           return;
