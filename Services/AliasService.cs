@@ -21,7 +21,7 @@ namespace CriminalsProgram.Services
     public static int getLatestId()
     {
       List<Alias> aliases = GetAllAliases();
-      int latestId = aliases.Last().Id;
+      int latestId = aliases.LastOrDefault()?.Id ?? 0;
       return latestId;
     }
     public static void AddAlias(Alias newAlias)

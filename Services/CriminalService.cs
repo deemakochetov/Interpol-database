@@ -1,4 +1,5 @@
 using CriminalsProgram.Models.Main;
+using CriminalsProgram.Models.Helpers;
 using CriminalsProgram.Repositories;
 using CriminalsProgram.Views;
 
@@ -14,37 +15,35 @@ namespace CriminalsProgram.Services
 
     public static List<Criminal> FilterByName(List<Criminal> criminals, string name)
     {
-      return criminals.Where(criminal => criminal.FirstName == name).ToList();
+      return criminals.Where(criminal => criminal.FirstName.ToLower() == name.ToLower()).ToList();
     }
 
     public static List<Criminal> FilterBySurname(List<Criminal> criminals, string surname)
     {
-      return criminals.Where(criminal => criminal.LastName == surname).ToList();
+      return criminals.Where(criminal => criminal.LastName.ToLower() == surname.ToLower()).ToList();
     }
 
     public static List<Criminal> FilterByEyesColor(List<Criminal> criminals, string eyesColor)
     {
-      return criminals.Where(criminal => criminal.EyesColor == eyesColor).ToList();
+      return criminals.Where(criminal => criminal.EyesColor.ToLower() == eyesColor.ToLower()).ToList();
     }
 
     public static List<Criminal> FilterByHairColor(List<Criminal> criminals, string hairColor)
     {
-      return criminals.Where(criminal => criminal.HairColor == hairColor).ToList();
+      return criminals.Where(criminal => criminal.HairColor.ToLower() == hairColor.ToLower()).ToList();
     }
 
     public static List<Criminal> FilterByNationality(List<Criminal> criminals, string nationality)
     {
-      return criminals.Where(criminal => criminal.Nationality == nationality).ToList();
+      return criminals.Where(criminal => criminal.Nationality.ToLower() == nationality.ToLower()).ToList();
     }
     public static List<Criminal> FilterByCriminalJob(List<Criminal> criminals, string criminalJob)
     {
-      return criminals.Where(criminal => criminal.CriminalJob == criminalJob).ToList();
+      return criminals.Where(criminal => criminal.CriminalJob.ToLower() == criminalJob.ToLower()).ToList();
     }
-    public static List<Criminal> FilterByAge(List<Criminal> criminals, int age)
+    public static List<Criminal> FilterByBirthYear(List<Criminal> criminals, int birthYear)
     {
-      int currentYear = DateTime.Now.Year;
-      int filterBirthYear = currentYear - age;
-      return criminals.Where(criminal => criminal.DateOfBirth.Year == filterBirthYear).ToList();
+      return criminals.Where(criminal => criminal.DateOfBirth.Year == birthYear).ToList();
     }
     public static List<Criminal> GetActiveCriminals()
     {
@@ -94,7 +93,7 @@ namespace CriminalsProgram.Services
     {
       List<Criminal> activeCriminals = GetActiveCriminals();
       List<Criminal> archivedCriminals = GetArchivedCriminals();
-      int latestId = Math.Max(activeCriminals.Last().Id, archivedCriminals.Last().Id);
+      int latestId = Math.Max(activeCriminals.LastOrDefault()?.Id ?? 0, archivedCriminals.LastOrDefault()?.Id ?? 0);
       return latestId;
     }
 
@@ -102,11 +101,9 @@ namespace CriminalsProgram.Services
     {
       database.AddCriminal(newCriminal);
     }
-    public static void UpdateCriminal(int id, Criminal newCriminal)
+    public static void UpdateCriminal(int id, Criminal newCriminal, CriminalStatus lastStatus)
     {
-      database.UpdateCriminal(id, newCriminal);
+      database.UpdateCriminal(id, newCriminal, lastStatus);
     }
-
-
   }
 }

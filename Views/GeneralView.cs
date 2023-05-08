@@ -44,12 +44,22 @@ namespace CriminalsProgram.Views
     {
       Print(message);
       string input = Console.ReadLine();
+      if (string.IsNullOrEmpty(input))
+      {
+        Log("Введене значення не може бути порожнім");
+        return PromptString(message);
+      }
       return input;
     }
     public static int PromptInt(string message)
     {
       Print(message);
       string input = Console.ReadLine();
+      if (string.IsNullOrEmpty(input))
+      {
+        Log("Введене значення не може бути порожнім");
+        return PromptInt(message);
+      }
       int number;
       if (int.TryParse(input, out number))
       {

@@ -34,7 +34,8 @@ namespace CriminalsProgram.Views
       }
       else
       {
-        Log("Not found");
+        Log("Угруповання з таким ID не знайдено");
+        PromptClick();
       }
     }
 
@@ -84,7 +85,7 @@ namespace CriminalsProgram.Views
       }
       aliasesOptions.Add(counter.ToString(), null);
       Log($"{counter}. Завершити вибір");
-      string option = Console.ReadLine();
+      string option = PromptString("Оберіть опцію: ");
       if (aliasesOptions.ContainsKey(option))
       {
         if (aliasesOptions[option] == null)

@@ -32,7 +32,8 @@ namespace CriminalsProgram.Repositories
 
     public void AddCriminal(Criminal criminal)
     {
-      if (criminal.Status == CriminalStatus.Dead)
+      if (criminal.Status == CriminalStatus.Dead) return;
+      if (criminal.Status == CriminalStatus.Archived)
       {
         archivedCriminals.Add(criminal);
       }
@@ -52,7 +53,7 @@ namespace CriminalsProgram.Repositories
       criminalToUpdate.DateOfBirth = updatedCriminal.DateOfBirth;
       criminalToUpdate.Status = updatedCriminal.Status;
     }
-    public bool UpdateCriminal(int id, Criminal updatedCriminal)
+    public bool UpdateCriminal(int id, Criminal updatedCriminal, CriminalStatus lastStatus)
     {
       // Find the criminal to be updated
       Criminal criminalToUpdate = activeCriminals.Find(criminal => criminal.Id == id);
@@ -62,34 +63,29 @@ namespace CriminalsProgram.Repositories
       }
       if (criminalToUpdate == null) return false;
 
-
-
-
       if (updatedCriminal.Status == CriminalStatus.Active)
       {
-        if (criminalToUpdate.Status == CriminalStatus.Archived)
+        if (lastStatus == CriminalStatus.Archived)
         {
           archivedCriminals.Remove(criminalToUpdate);
-          EditCriminal(criminalToUpdate, updatedCriminal);
           activeCriminals.Add(criminalToUpdate);
         }
       }
       if (updatedCriminal.Status == CriminalStatus.Archived)
       {
-        if (criminalToUpdate.Status == CriminalStatus.Active)
+        if (lastStatus == CriminalStatus.Active)
         {
           activeCriminals.Remove(criminalToUpdate);
-          EditCriminal(criminalToUpdate, updatedCriminal);
           archivedCriminals.Add(criminalToUpdate);
         }
       }
       if (updatedCriminal.Status == CriminalStatus.Dead)
       {
-        if (criminalToUpdate.Status == CriminalStatus.Active)
+        if (lastStatus == CriminalStatus.Active)
         {
           activeCriminals.Remove(criminalToUpdate);
         }
-        if (criminalToUpdate.Status == CriminalStatus.Archived)
+        if (lastStatus == CriminalStatus.Archived)
         {
           archivedCriminals.Remove(criminalToUpdate);
         }

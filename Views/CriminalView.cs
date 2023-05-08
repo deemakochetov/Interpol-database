@@ -3,8 +3,6 @@ using CriminalsProgram.Models.Main;
 using CriminalsProgram.Models.Helpers;
 using CriminalsProgram.Services;
 using static CriminalsProgram.Views.GeneralView;
-using static CriminalsProgram.Views.AliasView;
-using CriminalsProgram.Interfaces;
 
 namespace CriminalsProgram.Views
 {
@@ -22,17 +20,20 @@ namespace CriminalsProgram.Views
     {
       int id = PromptId();
       Criminal criminalToUpdate = CriminalService.GetActiveCriminals().Find(c => c.Id == id);
+      if (criminalToUpdate == null) criminalToUpdate = CriminalService.GetArchivedCriminals().Find(c => c.Id == id);
 
       if (criminalToUpdate != null)
       {
         Log($"Редагування злочинця {criminalToUpdate.FirstName} {criminalToUpdate.LastName} (ID: {criminalToUpdate.Id})");
+        CriminalStatus lastStatus = criminalToUpdate.Status;
         Criminal updatedCriminal = CriminalView.PromptUpdate(criminalToUpdate);
 
-        CriminalService.UpdateCriminal(id, updatedCriminal);
+        CriminalService.UpdateCriminal(id, updatedCriminal, lastStatus);
       }
       else
       {
         Log("Not found");
+        PromptClick();
       }
     }
     public static void ShowActiveCriminals()
@@ -44,7 +45,6 @@ namespace CriminalsProgram.Views
     {
       List<Criminal> archivedCriminals = CriminalService.GetArchivedCriminals();
       ListObjects<Criminal>(archivedCriminals);
-
     }
     public static void ShowSearchMenu()
     {
@@ -65,7 +65,7 @@ namespace CriminalsProgram.Views
         }
       }
       Log("Натисніть будь-яку клавішу для продовження...");
-      Console.ReadKey();
+      PromptClick();
     }
     public static void ShowFilterMenu()
     {
@@ -115,10 +115,12 @@ namespace CriminalsProgram.Views
           ListObjects<Criminal>(filteredByCriminalJob);
           break;
         case "7":
-          int ageFilter = PromptInt("Введіть вік для фільтрування: ");
-          List<Criminal> filteredByAge = CriminalService.FilterByAge(criminals, ageFilter);
-          ListObjects<Criminal>(filteredByAge);
+          int birthYearFilter = PromptInt("Введіть рік народження для фільтрування: ");
+          List<Criminal> filteredByBirthYear = CriminalService.FilterByBirthYear(criminals, birthYearFilter);
+          ListObjects<Criminal>(filteredByBirthYear);
           break;
+        case "8":
+          return;
         default:
           Log("Невірний вибір опції. Натисніть будь-яку клавішу для продовження...");
           Console.ReadKey();
@@ -186,8 +188,7 @@ namespace CriminalsProgram.Views
       Log("1. Діючий");
       Log("2. Виправлений");
       Log("3. Мертвий");
-      Log("Оберіть опцію: ");
-      int statusOption = int.Parse(Console.ReadLine());
+      int statusOption = PromptInt("Оберіть опцію: ");
       switch (statusOption)
       {
         case 1:
@@ -210,7 +211,7 @@ namespace CriminalsProgram.Views
       Log("1. Чоловіча");
       Log("2. Жіноча");
 
-      string genderOption = Console.ReadLine();
+      string genderOption = PromptString("Оберіть опцію: ");
       switch (genderOption)
       {
         case "1":

@@ -36,10 +36,13 @@ namespace CriminalsProgram.Models.Main
     public Criminal()
     {
     }
-
+    public string getAliasesNames()
+    {
+      return string.Join(", ", Aliases.Select(alias => alias.Name));
+    }
     public string GetReview()
     {
-      return $"Id: {Id}\nІм'я: {FirstName}\nПрізвище: {LastName}\nЗріст: {Height}\nВага: {Weight}\nКолір волосся: {HairColor}\nКолір очей: {EyesColor}\nНаціональність: {Nationality}\nМісце народження: {BirthPlace}\nОстаннє місце проживання: {LastResidencePlace}\nПоточне місце знаходження: {CurrentLocation}\nЗнання мов: {Languages}\nКримінальне заняття: {CriminalJob}\nОстанній злочин: {LastCase}\nУгруповання: {Aliases}\nЗовнішній вигляд: {Appearance}\nГендер: {Gender}\nОпис злочину: {Description}\nСтатус: {Status}\nДата народження: {DateOfBirth}";
+      return $"Id: {Id}\nІм'я: {FirstName}\nПрізвище: {LastName}\nЗріст: {Height}\nВага: {Weight}\nКолір волосся: {HairColor}\nКолір очей: {EyesColor}\nНаціональність: {Nationality}\nМісце народження: {BirthPlace}\nОстаннє місце проживання: {LastResidencePlace}\nПоточне місце знаходження: {CurrentLocation}\nЗнання мов: {Languages}\nКримінальне заняття: {CriminalJob}\nОстанній злочин: {LastCase}\nУгруповання: {getAliasesNames()}\nЗовнішній вигляд: {Appearance}\nГендер: {Gender}\nОпис злочину: {Description}\nСтатус: {Status}\nДата народження: {DateOfBirth}";
     }
 
     // public static CriminalBuilder Builder()
