@@ -83,8 +83,7 @@ namespace CriminalsProgram.Views
     }
     public static int PromptId()
     {
-      Print("Введіть ID обʼєкта для редагування: ");
-      string input = Console.ReadLine();
+      string input = PromptString("Введіть ID обʼєкта: ");
       int id;
       if (int.TryParse(input, out id))
       {

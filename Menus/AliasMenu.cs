@@ -18,7 +18,8 @@ namespace CriminalsProgram.Menus
       Log("1. Показати усі угруповання");
       Log("2. Додати угруповання");
       Log("3. Редагувати угруповання");
-      Log("4. Покинути меню угруповань");
+      Log("4. Показати усіх членів угруповання");
+      Log("5. Покинути меню угруповань");
 
       string choice = PromptString("Виберіть опцію: ");
 
@@ -34,6 +35,9 @@ namespace CriminalsProgram.Menus
           AliasView.UpdateAlias();
           break;
         case "4":
+          AliasView.ShowMembers();
+          break;
+        case "5":
           return;
         default:
           Log("Невірний вибір опції. Натисніть будь-яку клавішу для продовження...");

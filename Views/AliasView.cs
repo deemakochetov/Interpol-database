@@ -45,6 +45,12 @@ namespace CriminalsProgram.Views
       Alias newAlias = new Alias(id, name);
       return newAlias;
     }
+    public static List<Criminal> GetMembers(int id)
+    {
+      Alias alias = AliasService.GetAliasById(id);
+      List<Criminal> members = CriminalService.GetAliasMembers(alias);
+      return members;
+    }
     public static Alias PromptUpdate(Alias aliasToUpdate)
     {
       Log("Оберіть інформацію, яку ви хочете змінити:");
@@ -68,7 +74,13 @@ namespace CriminalsProgram.Views
 
       return PromptUpdate(aliasToUpdate);
     }
-
+    public static void ShowMembers()
+    {
+      int id = PromptId();
+      Alias alias = AliasService.GetAliasById(id);
+      List<Criminal> members = CriminalService.GetAliasMembers(alias);
+      ListObjects<Criminal>(members);
+    }
     public static List<Alias> PromptAliases(List<Alias> aliases = null, List<Alias> chosenAliases = null)
     {
       if (aliases == null) aliases = AliasService.GetAllAliases();

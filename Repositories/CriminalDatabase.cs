@@ -119,5 +119,19 @@ namespace CriminalsProgram.Repositories
     {
       FileHelper.LoadCriminals(fileName, out activeCriminals, out archivedCriminals);
     }
+    public List<Criminal> GetAliasMembers(Alias alias)
+    {
+      List<Criminal> criminalsWithSpecificAlias = new List<Criminal>();
+
+      foreach (Criminal criminal in activeCriminals)
+      {
+        if (criminal.Aliases.Contains(alias))
+        {
+          criminalsWithSpecificAlias.Add(criminal);
+        }
+      }
+
+      return criminalsWithSpecificAlias;
+    }
   }
 }
