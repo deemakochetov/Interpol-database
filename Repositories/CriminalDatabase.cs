@@ -55,7 +55,6 @@ namespace CriminalsProgram.Repositories
     }
     public bool UpdateCriminal(int id, Criminal updatedCriminal, CriminalStatus lastStatus)
     {
-      // Find the criminal to be updated
       Criminal criminalToUpdate = activeCriminals.Find(criminal => criminal.Id == id);
       if (criminalToUpdate == null)
       {
@@ -99,7 +98,7 @@ namespace CriminalsProgram.Repositories
       List<Criminal> results = new List<Criminal>();
 
       foreach (Criminal criminal in activeCriminals)
-      {// optimize name
+      {
         if ((criminal.FirstName + " " + criminal.LastName).ToLower().Contains(query.ToLower()) ||
             criminal.Description.ToLower().Contains(query.ToLower()))
         {

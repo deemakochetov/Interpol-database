@@ -6,29 +6,22 @@ namespace CriminalsProgram.Repositories
   {
     private List<Alias> _aliases;
     private string fileName;
-
-
     public AliasDatabase()
     {
       _aliases = new List<Alias>();
       fileName = "aliases.json";
       LoadAliases();
     }
-
-    // Add a new alias to the database
     public void AddAlias(Alias alias)
     {
       _aliases.Add(alias);
       SaveAliases();
     }
-
-    // Retrieve an alias by its ID
     public Alias GetAliasById(int id)
     {
       return _aliases.FirstOrDefault(a => a.Id == id);
     }
 
-    // Update an existing alias in the database
     public void UpdateAlias(Alias alias)
     {
       var index = _aliases.FindIndex(a => a.Id == alias.Id);
@@ -39,14 +32,12 @@ namespace CriminalsProgram.Repositories
       SaveAliases();
     }
 
-    // Remove an alias from the database
     public void RemoveAlias(Alias alias)
     {
       _aliases.Remove(alias);
       SaveAliases();
     }
 
-    // Get a list of all aliases in the database
     public List<Alias> GetAllAliases()
     {
       return _aliases.ToList();
@@ -56,7 +47,6 @@ namespace CriminalsProgram.Repositories
     {
       FileHelper.SaveAliases(fileName, _aliases);
     }
-
     private void LoadAliases()
     {
       FileHelper.LoadAliases(fileName, out _aliases);

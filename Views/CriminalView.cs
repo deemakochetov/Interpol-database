@@ -262,7 +262,6 @@ namespace CriminalsProgram.Views
 
 
       int fieldOption = PromptInt("Оберіть опцію: ");
-      // cahnge/ update
       switch (fieldOption)
       {
         case 1:

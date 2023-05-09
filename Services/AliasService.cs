@@ -31,7 +31,7 @@ namespace CriminalsProgram.Services
 
     public static void UpdateAlias(Alias updatedAlias)
     {
-      database.UpdateAlias(updatedAlias); // consider passing id as argument
+      database.UpdateAlias(updatedAlias);
     }
     public static Alias GetAliasById(int id)
     {

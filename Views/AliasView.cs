@@ -23,14 +23,14 @@ namespace CriminalsProgram.Views
     public static void UpdateAlias()
     {
       int id = PromptId();
-      Alias aliasToUpdate = AliasService.GetAliasById(id); // do the same for criminal
+      Alias aliasToUpdate = AliasService.GetAliasById(id);
 
       if (aliasToUpdate != null)
       {
         Log($"Редагування угруповання {aliasToUpdate.Name} (ID: {aliasToUpdate.Id})");
         Alias updatedAlias = AliasView.PromptUpdate(aliasToUpdate);
 
-        AliasService.UpdateAlias(updatedAlias); // consider passing id as argument
+        AliasService.UpdateAlias(updatedAlias);
       }
       else
       {

@@ -41,7 +41,6 @@ namespace CriminalsProgram.Models.Main
       {
         // Read the JSON data from the file
         string jsonData = File.ReadAllText(fileName);
-        // Console.WriteLine(jsonData);
 
         // Deserialize the JSON data to an object
         JsonFormatCriminals data = JsonSerializer.Deserialize<JsonFormatCriminals>(jsonData);
