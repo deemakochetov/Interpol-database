@@ -105,9 +105,9 @@ namespace CriminalsProgram.Services
     {
       database.UpdateCriminal(id, newCriminal, lastStatus);
     }
-    public static List<Criminal> GetAliasMembers(Alias alias)
+    public static List<Criminal> GetAliasMembers(int id)
     {
-      List<Criminal> members = database.GetAliasMembers(alias);
+      List<Criminal> members = database.GetAliasMembers(id);
       return members;
     }
   }

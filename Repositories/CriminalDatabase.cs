@@ -119,19 +119,9 @@ namespace CriminalsProgram.Repositories
     {
       FileHelper.LoadCriminals(fileName, out activeCriminals, out archivedCriminals);
     }
-    public List<Criminal> GetAliasMembers(Alias alias)
+    public List<Criminal> GetAliasMembers(int id)
     {
-      List<Criminal> criminalsWithSpecificAlias = new List<Criminal>();
-
-      foreach (Criminal criminal in activeCriminals)
-      {
-        if (criminal.Aliases.Contains(alias))
-        {
-          criminalsWithSpecificAlias.Add(criminal);
-        }
-      }
-
-      return criminalsWithSpecificAlias;
+      return activeCriminals.Where(criminal => criminal.Aliases.Select(alias => alias.Id).Contains(id)).ToList();
     }
   }
 }

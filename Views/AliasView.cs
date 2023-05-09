@@ -47,8 +47,7 @@ namespace CriminalsProgram.Views
     }
     public static List<Criminal> GetMembers(int id)
     {
-      Alias alias = AliasService.GetAliasById(id);
-      List<Criminal> members = CriminalService.GetAliasMembers(alias);
+      List<Criminal> members = CriminalService.GetAliasMembers(id);
       return members;
     }
     public static Alias PromptUpdate(Alias aliasToUpdate)
@@ -78,8 +77,16 @@ namespace CriminalsProgram.Views
     {
       int id = PromptId();
       Alias alias = AliasService.GetAliasById(id);
-      List<Criminal> members = CriminalService.GetAliasMembers(alias);
-      ListObjects<Criminal>(members);
+      if (alias != null)
+      {
+        List<Criminal> members = CriminalService.GetAliasMembers(id);
+        ListObjects<Criminal>(members);
+      }
+      else
+      {
+        Log("Угруповання з таким ID не знайдено");
+        PromptClick();
+      }
     }
     public static List<Alias> PromptAliases(List<Alias> aliases = null, List<Alias> chosenAliases = null)
     {
