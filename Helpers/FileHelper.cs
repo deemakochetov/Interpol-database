@@ -22,7 +22,7 @@ namespace CriminalsProgram.Models.Main
       }
       catch (Exception ex)
       {
-        Console.WriteLine("Error writing to file: " + ex.Message);
+        Console.WriteLine("Помилка при записуванні даних до файлу: " + ex.Message);
       }
     }
     public class JsonFormatCriminals
@@ -50,7 +50,8 @@ namespace CriminalsProgram.Models.Main
       }
       catch (Exception ex)
       {
-        Console.WriteLine("Error reading from file: " + ex.Message);
+        if (ex.Message.Contains("Could not find file")) Console.WriteLine("Файл не був знайдений. Він буде створений при додаванні нових злочинців");
+        else Console.WriteLine("Помилка читання з фалу: " + ex.Message);
         activeCriminals = new List<Criminal>(new Criminal[0]);
         archivedCriminals = new List<Criminal>(new Criminal[0]);
 
@@ -71,7 +72,7 @@ namespace CriminalsProgram.Models.Main
       }
       catch (Exception ex)
       {
-        Console.WriteLine("Error writing to file: " + ex.Message);
+        Console.WriteLine("Помилка при записуванні даних до файлу: " + ex.Message);
       }
     }
 
@@ -89,7 +90,8 @@ namespace CriminalsProgram.Models.Main
       }
       catch (Exception ex)
       {
-        Console.WriteLine("Error reading from file: " + ex.Message);
+        if (ex.Message.Contains("Could not find file")) Console.WriteLine("Файл не був знайдений. Він буде створений при додаванні нових угруповань");
+        else Console.WriteLine("Помилка читання з фалу: " + ex.Message);
         aliases = new List<Alias>(new Alias[0]);
       }
     }

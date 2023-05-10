@@ -91,6 +91,11 @@ namespace CriminalsProgram.Views
     public static List<Alias> PromptAliases(List<Alias> aliases = null, List<Alias> chosenAliases = null)
     {
       if (aliases == null) aliases = AliasService.GetAllAliases();
+      if (aliases.Count == 0)
+      {
+        Log("Угруповань не знайдено");
+        return aliases;
+      }
       if (chosenAliases == null) chosenAliases = new List<Alias>();
       Log("Оберіть угруповання:");
       int counter = 1;
@@ -114,6 +119,10 @@ namespace CriminalsProgram.Views
         if (!chosenAliases.Contains(aliasesOptions[option]))
         {
           chosenAliases.Add(aliasesOptions[option]);
+        }
+        else
+        {
+          Log($"Це угруповання вже було обрано");
         }
         return PromptAliases(aliases, chosenAliases);
       }
