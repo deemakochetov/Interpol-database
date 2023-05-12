@@ -135,8 +135,8 @@ namespace CriminalsProgram.Views
       string firstName = PromptString("Ім'я: ");
       string lastName = PromptString("Прізвище: ");
       string nickname = PromptString("Кличка: ");
-      int height = PromptInt("Зріст: ");
-      int weight = PromptInt("Вага: ");
+      int height = PromptInt("Зріст(у см): ");
+      int weight = PromptInt("Вага(у кг): ");
       string hairColor = PromptString("Колір волосся: ");
       string eyesColor = PromptString("Колір очей: ");
       string nationality = PromptString("Національність: ");
@@ -265,82 +265,102 @@ namespace CriminalsProgram.Views
       switch (fieldOption)
       {
         case 1:
-          string firstName = PromptString("Ім'я: ");
+          Log($"Поточне ім'я: {criminal.FirstName}");
+          string firstName = PromptString("Нове ім'я: ");
           criminal.FirstName = firstName;
           break;
         case 2:
-          string lastName = PromptString("Прізвище: ");
+          Log($"Поточне прізвище: {criminal.LastName}");
+          string lastName = PromptString("Нове прізвище: ");
           criminal.LastName = lastName;
           break;
         case 3:
-          string nickname = PromptString("Кличка: ");
+          Log($"Поточна кличка: {criminal.Nickname}");
+          string nickname = PromptString("Нова кличка: ");
           criminal.Nickname = nickname;
           break;
         case 4:
-          int height = PromptInt("Зріст: ");
+          Log($"Поточний зріст: {criminal.Height}");
+          int height = PromptInt("Новий зріст: ");
           criminal.Height = height;
           break;
         case 5:
-          int weight = PromptInt("Вага: ");
+          Log($"Поточна вага: {criminal.Weight}");
+          int weight = PromptInt("Нова вага: ");
           criminal.Weight = weight;
           break;
         case 6:
-          string hairColor = PromptString("Колір волосся: ");
+          Log($"Поточний колір волосся: {criminal.HairColor}");
+          string hairColor = PromptString("Новий колір волосся: ");
           criminal.HairColor = hairColor;
           break;
         case 7:
-          string eyesColor = PromptString("Колір очей: ");
+          Log($"Поточний колір очей: {criminal.EyesColor}");
+          string eyesColor = PromptString("Новий колір очей: ");
           criminal.EyesColor = eyesColor;
           break;
         case 8:
-          string nationality = PromptString("Національність: ");
+          Log($"Поточна національність: {criminal.Nationality}");
+          string nationality = PromptString("Нова національність: ");
           criminal.Nationality = nationality;
           break;
         case 9:
-          string birthPlace = PromptString("Місце народження: ");
+          Log($"Поточне місце народження: {criminal.BirthPlace}");
+          string birthPlace = PromptString("Нове місце народження: ");
           criminal.BirthPlace = birthPlace;
           break;
         case 10:
-          string lastResidencePlace = PromptString("Останнє місце проживання: ");
+          Log($"Актуальне останнє місце проживання: {criminal.LastResidencePlace}");
+          string lastResidencePlace = PromptString("Поновлене останнє місце проживання: ");
           criminal.LastResidencePlace = lastResidencePlace;
           break;
         case 11:
-          string currentLocation = PromptString("Поточне місце знаходження: ");
+          Log($"Актуальне поточне останнє місце проживання: {criminal.CurrentLocation}");
+          string currentLocation = PromptString("Поновлене поточне місце знаходження: ");
           criminal.CurrentLocation = currentLocation;
           break;
         case 12:
-          string languages = PromptString("Знання мов: ");
+          Log($"Поточне знання мов: {criminal.Languages}");
+          string languages = PromptString("Поновлене знання мов: ");
           criminal.Languages = languages;
           break;
         case 13:
-          string criminalJob = PromptString("Кримінальне заняття: ");
+          Log($"Поточне кримінальне заняття: {criminal.Languages}");
+          string criminalJob = PromptString("Нове кримінальне заняття: ");
           criminal.CriminalJob = criminalJob;
           break;
         case 14:
-          string lastCase = PromptString("Останній злочин: ");
+          Log($"Останній злочин: {criminal.LastCase}");
+          string lastCase = PromptString("Новий останній злочин: ");
           criminal.LastCase = lastCase;
           break;
         case 15:
-          string appearance = PromptString("Зовнішній вигляд: ");
+          Log($"Поточний зовнішній вигляд: {criminal.Appearance}");
+          string appearance = PromptString("Новий зовнішній вигляд: ");
           criminal.Appearance = appearance;
           break;
         case 16:
+          Log($"Поточний гендер: {criminal.Gender.ToString()}");
           Gender gender = PromptGender();
           criminal.Gender = gender;
           break;
         case 17:
-          string description = PromptString("Опис злочинів: ");
+          Log($"Поточний опис злочинів: {criminal.Description}");
+          string description = PromptString("Новий опис злочинів: ");
           criminal.Description = description;
           break;
         case 18:
+          Log($"Поточний статус: {criminal.Status.ToString()}");
           CriminalStatus status = PromptStatus();
           criminal.Status = status;
           break;
         case 19:
+          Log($"Поточна дата народження: {criminal.Status.ToString()}");
           DateOnly dateOfBirth = PromptBirthDate();
           criminal.DateOfBirth = dateOfBirth;
           break;
         case 20:
+          // Log($"Поточні угруповання: ");
           List<Alias> aliases = AliasView.PromptAliases();
           criminal.Aliases = aliases;
           break;
@@ -351,7 +371,7 @@ namespace CriminalsProgram.Views
           Console.ReadKey();
           break;
       }
-
+      LogSuccess();
       return PromptUpdate(criminal);
     }
   }

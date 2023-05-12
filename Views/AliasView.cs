@@ -60,7 +60,8 @@ namespace CriminalsProgram.Views
       switch (fieldOption)
       {
         case 1:
-          string name = PromptString("Ім'я: ");
+          Log($"Поточне ім'я: {aliasToUpdate.Name}");
+          string name = PromptString("Нове ім'я: ");
           aliasToUpdate.Name = name;
           break;
         case 2:
