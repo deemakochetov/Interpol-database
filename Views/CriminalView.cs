@@ -14,7 +14,7 @@ namespace CriminalsProgram.Views
       Criminal newCriminal = CriminalView.PromptCriminal(nextId);
 
       CriminalService.AddCriminal(newCriminal);
-      LogSuccess();
+      Log($"Злочинця з ID {nextId} було успішно створено");
       PromptClick();
     }
     public static void UpdateCriminal()

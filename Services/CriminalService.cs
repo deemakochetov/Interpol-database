@@ -66,7 +66,7 @@ namespace CriminalsProgram.Services
 
     public static List<Criminal> SearchCriminals(string query)
     {
-      List<Criminal> activeCriminals = database.GetActiveCriminals();
+      List<Criminal> activeCriminals = GetAllCriminals();
       List<Criminal> results = new List<Criminal>();
       foreach (Criminal criminal in activeCriminals)
       {

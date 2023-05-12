@@ -17,7 +17,7 @@ namespace CriminalsProgram.Views
       Alias newAlias = AliasView.PromptAlias(nextId);
 
       AliasService.AddAlias(newAlias);
-      LogSuccess();
+      Log($"Угруповання з ID {nextId} було успішно створено");
       PromptClick();
     }
     public static void UpdateAlias()
