@@ -131,12 +131,6 @@ namespace CriminalsProgram.Models.Main
       return this;
     }
 
-    public CriminalBuilder WithDangerLevel(byte dangerLevel)
-    {
-      _criminal.DangerLevel = dangerLevel;
-      return this;
-    }
-
     public CriminalBuilder WithDateOfBirth(DateOnly dateOfBirth)
     {
       _criminal.DateOfBirth = dateOfBirth;

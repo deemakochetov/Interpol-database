@@ -128,9 +128,9 @@ namespace CriminalsProgram.Views
       }
       else
       {
+        Log("Введіть вірну опцію");
         return PromptAliases(aliases, chosenAliases);
       }
-
     }
   }
 }

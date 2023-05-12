@@ -15,6 +15,7 @@ namespace CriminalsProgram.Views
 
       CriminalService.AddCriminal(newCriminal);
       LogSuccess();
+      PromptClick();
     }
     public static void UpdateCriminal()
     {
@@ -64,7 +65,6 @@ namespace CriminalsProgram.Views
           LogSeparator();
         }
       }
-      Log("Натисніть будь-яку клавішу для продовження...");
       PromptClick();
     }
     public static void ShowFilterMenu()
@@ -145,11 +145,11 @@ namespace CriminalsProgram.Views
       string currentLocation = PromptString("Поточне місце знаходження: ");
       string languages = PromptString("Знання мов: ");
       string criminalJob = PromptString("Кримінальне заняття: ");
+      string description = PromptString("Опис злочинів: ");
       string lastCase = PromptString("Останній злочин: ");
       string appearance = PromptString("Зовнішній вигляд: ");
       Gender gender = PromptGender();
       DateOnly dateOfBirth = PromptBirthDate();
-      string description = PromptString("Опис злочину: ");
       CriminalStatus status = PromptStatus();
       List<Alias> aliases = AliasView.PromptAliases();
       var criminalBuilder = new CriminalBuilder();
@@ -254,7 +254,7 @@ namespace CriminalsProgram.Views
       Log("14. Останній злочин");
       Log("15. Зовнішній вигляд");
       Log("16. Гендер");
-      Log("17. Опис злочину");
+      Log("17. Опис злочинів");
       Log("18. Статус");
       Log("19. Дата народження");
       Log("20. Угруповання");
@@ -329,7 +329,7 @@ namespace CriminalsProgram.Views
           criminal.Gender = gender;
           break;
         case 17:
-          string description = PromptString("Опис злочину: ");
+          string description = PromptString("Опис злочинів: ");
           criminal.Description = description;
           break;
         case 18:

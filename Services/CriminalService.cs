@@ -68,11 +68,12 @@ namespace CriminalsProgram.Services
     {
       List<Criminal> activeCriminals = database.GetActiveCriminals();
       List<Criminal> results = new List<Criminal>();
-
       foreach (Criminal criminal in activeCriminals)
       {
+        string fullName = criminal.FirstName.ToLower() + " " + criminal.LastName.ToLower();
         if (criminal.FirstName.ToLower().Contains(query.ToLower()) ||
         criminal.LastName.ToLower().Contains(query.ToLower()) ||
+        fullName.Contains(query.ToLower()) ||
         criminal.CriminalJob.ToLower().Contains(query.ToLower()) ||
             criminal.Description.ToLower().Contains(query.ToLower())
             )

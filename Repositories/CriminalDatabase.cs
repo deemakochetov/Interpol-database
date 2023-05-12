@@ -49,7 +49,6 @@ namespace CriminalsProgram.Repositories
       criminalToUpdate.LastName = updatedCriminal.LastName;
       criminalToUpdate.Gender = updatedCriminal.Gender;
       criminalToUpdate.Description = updatedCriminal.Description;
-      criminalToUpdate.DangerLevel = updatedCriminal.DangerLevel;
       criminalToUpdate.DateOfBirth = updatedCriminal.DateOfBirth;
       criminalToUpdate.Status = updatedCriminal.Status;
     }

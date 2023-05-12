@@ -30,7 +30,6 @@ namespace CriminalsProgram.Models.Main
     public Gender Gender { get; set; }
     public string Description { get; set; }
     public CriminalStatus Status { get; set; }
-    public byte DangerLevel { get; set; }
     public DateOnly DateOfBirth { get; set; }
 
     public Criminal()
