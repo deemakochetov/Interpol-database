@@ -93,9 +93,14 @@ namespace CriminalsProgram.Helpers
       string filePath = Path.Combine("prints", fileName);
 
       Directory.CreateDirectory("prints");
-
-      File.WriteAllText(filePath, text);
-
+      try
+      {
+        File.WriteAllText(filePath, text);
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine("Помилка читання з фалу: " + ex.Message);
+      }
       return fileName;
     }
 
@@ -105,8 +110,14 @@ namespace CriminalsProgram.Helpers
       string filePath = Path.Combine("prints", fileName);
 
       Directory.CreateDirectory("prints");
-
-      File.WriteAllText(filePath, text);
+      try
+      {
+        File.AppendAllText(filePath, text);
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine("Помилка читання з фалу: " + ex.Message);
+      }
     }
   }
 }

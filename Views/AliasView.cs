@@ -121,6 +121,7 @@ namespace CriminalsProgram.Views
         if (!chosenAliases.Contains(aliasesOptions[option]!))
         {
           chosenAliases.Add(aliasesOptions[option]!);
+          Log("Угруповання успішно обрано");
         }
         else
         {

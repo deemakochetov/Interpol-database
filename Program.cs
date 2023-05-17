@@ -10,6 +10,8 @@ class Program
     while (true)
     {
       Console.Clear();
+      Console.WriteLine('\n');
+
       Log("Головне меню");
       Log("1. Відкрити меню злочинців");
       Log("2. Відкрити меню угруповань");

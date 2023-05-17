@@ -77,7 +77,8 @@ namespace CriminalsProgram.Views
       Log("5. Фільтрувати за національністю");
       Log("6. Фільтрувати за кримінальним заняттям");
       Log("7. Фільтрувати за роком народження");
-      Log("8. Повернутися до меню");
+      Log("8. Фільтрувати за статусом");
+      Log("9. Повернутися до меню");
 
       List<Criminal> filteredCriminals = new List<Criminal>();
       string filterChoice = PromptString("Виберіть опцію: ");

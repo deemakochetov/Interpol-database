@@ -14,6 +14,8 @@ namespace CriminalsProgram.Menus
     public static void ShowMenu()
     {
       Console.Clear();
+      Console.WriteLine('\n');
+
       Log("Головне меню");
       Log("1. Показати усі угруповання");
       Log("2. Додати угруповання");
