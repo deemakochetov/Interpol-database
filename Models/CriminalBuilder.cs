@@ -1,3 +1,4 @@
+using System;
 using CriminalsProgram.Models.Helpers;
 
 namespace CriminalsProgram.Models.Main

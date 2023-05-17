@@ -349,7 +349,9 @@ namespace CriminalsProgram.Views
           criminal.DateOfBirth = dateOfBirth;
           break;
         case 20:
-          // Log($"Поточні угруповання: ");
+          Log($"Поточні угруповання: ");
+          Log(criminal.getAliasesNames());
+          Log($"Поточні угруповання скинуто. Оберіть угруповання: ");
           List<Alias> aliases = AliasView.PromptAliases();
           criminal.Aliases = aliases;
           break;

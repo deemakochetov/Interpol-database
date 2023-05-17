@@ -1,3 +1,4 @@
+using System;
 using CriminalsProgram.Models.Main;
 using CriminalsProgram.Models.Helpers;
 using CriminalsProgram.Repositories;
@@ -108,17 +109,6 @@ namespace CriminalsProgram.Services
     {
       List<Criminal> members = database.GetAliasMembers(id);
       return members;
-    }
-    public static string SaveForPrint<T>(List<T> criminals, string Divider) where T : IReviewable // put in different place
-    {
-      string stringForPrint = "";
-      foreach (T criminal in criminals)
-      {
-        stringForPrint += criminal.GetReview();
-        stringForPrint += $"\n{Divider}\n";
-      }
-      string fileName = FileHelper.SaveStringToFile(stringForPrint);
-      return fileName;
     }
   }
 }

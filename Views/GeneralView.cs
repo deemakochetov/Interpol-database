@@ -1,8 +1,6 @@
 using System;
-using CriminalsProgram.Models.Main;
-using CriminalsProgram.Models.Helpers;
-using CriminalsProgram.Services;
 using CriminalsProgram.Interfaces;
+using CriminalsProgram.Helpers;
 
 namespace CriminalsProgram.Views
 {
@@ -35,7 +33,7 @@ namespace CriminalsProgram.Views
       switch (option)
       {
         case 1:
-          string fileName = CriminalService.SaveForPrint<T>(objects, Separator);
+          string fileName = PrintHelper.SaveForPrint<T>(objects, Separator);
           Log($"Усі дані обраних обʼєктів були збережені до файлу {fileName} у папці prints");
           PromptClick();
           break;

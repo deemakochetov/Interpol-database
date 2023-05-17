@@ -1,9 +1,8 @@
 using System;
-using System.IO;
 using System.Text.Json;
-using System.Text.Json.Nodes;
+using CriminalsProgram.Models.Main;
 
-namespace CriminalsProgram.Models.Main
+namespace CriminalsProgram.Helpers
 {
   public class FileHelper
   {
@@ -83,7 +82,7 @@ namespace CriminalsProgram.Models.Main
       catch (Exception ex)
       {
         if (ex.Message.Contains("Could not find file")) Console.WriteLine("Файл не був знайдений. Він буде створений при додаванні нових угруповань");
-        else Console.WriteLine("Помилка читання з фалу: " + ex.Message); // maybe change
+        else Console.WriteLine("Помилка читання з фалу: " + ex.Message);
         aliases = new List<Alias>(new Alias[0]);
       }
     }
