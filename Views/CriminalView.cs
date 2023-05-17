@@ -123,7 +123,7 @@ namespace CriminalsProgram.Views
           CriminalStatus statusFilter = PromptAliveStatus();
           filteredCriminals = CriminalService.FilterByStatus(criminals, statusFilter);
           ListObjects<Criminal>(filteredCriminals);
-          return;
+          break;
         case "9":
           return;
         default:
@@ -132,6 +132,7 @@ namespace CriminalsProgram.Views
           ShowFilterMenu();
           break;
       }
+      Log("here");
       bool continueFiltering = SuggestFilter();
       if (continueFiltering) ShowFilterMenu(filteredCriminals);
     }
