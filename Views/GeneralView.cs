@@ -33,7 +33,7 @@ namespace CriminalsProgram.Views
       switch (option)
       {
         case 1:
-          string fileName = PrintHelper.SaveForPrint<T>(objects, Separator);
+          string fileName = PrintHelper.SaveForPrint<T>(objects);
           Log($"Усі дані обраних обʼєктів були збережені до файлу {fileName} у папці prints");
           PromptClick();
           break;

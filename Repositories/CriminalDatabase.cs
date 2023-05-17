@@ -87,6 +87,8 @@ namespace CriminalsProgram.Repositories
         {
           archivedCriminals.Remove(criminalToUpdate);
         }
+
+        PrintHelper.SaveToBackup<Criminal>(updatedCriminal);
       }
       SaveCriminals();
       return true;

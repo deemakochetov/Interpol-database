@@ -98,5 +98,15 @@ namespace CriminalsProgram.Helpers
 
       return fileName;
     }
+
+    public static void SaveStringToBackup(string text)
+    {
+      string fileName = "backup.txt";
+      string filePath = Path.Combine("prints", fileName);
+
+      Directory.CreateDirectory("prints");
+
+      File.WriteAllText(filePath, text);
+    }
   }
 }

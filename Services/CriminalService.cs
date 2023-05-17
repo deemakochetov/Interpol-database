@@ -69,16 +69,17 @@ namespace CriminalsProgram.Services
 
     public static List<Criminal> SearchCriminals(string query)
     {
-      List<Criminal> activeCriminals = GetAllCriminals();
+      List<Criminal> allCriminals = GetAllCriminals();
       List<Criminal> results = new List<Criminal>();
-      foreach (Criminal criminal in activeCriminals)
+      foreach (Criminal criminal in allCriminals)
       {
         string fullName = criminal.FirstName.ToLower() + " " + criminal.LastName.ToLower();
         if (criminal.FirstName.ToLower().Contains(query.ToLower()) ||
         criminal.LastName.ToLower().Contains(query.ToLower()) ||
         fullName.Contains(query.ToLower()) ||
         criminal.CriminalJob.ToLower().Contains(query.ToLower()) ||
-            criminal.Description.ToLower().Contains(query.ToLower())
+            criminal.Description.ToLower().Contains(query.ToLower()) ||
+            criminal.Appearance.ToLower().Contains(query.ToLower())
             )
         {
           results.Add(criminal);

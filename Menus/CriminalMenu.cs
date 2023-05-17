@@ -17,7 +17,7 @@ namespace CriminalsProgram.Menus
       List<Criminal> criminals = CriminalService.GetActiveCriminals();
       Log("Головне меню");
       Log("1. Показати усіх діючих злочинців");
-      Log("2. Подивитися список злочинців в архіві");
+      Log("2. Подивитися список виправлених злочинців");
       Log("3. Додати злочинця");
       Log("4. Фільтрувати злочинців");
       Log("5. Пошук злочинців");

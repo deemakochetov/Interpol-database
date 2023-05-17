@@ -156,7 +156,7 @@ namespace CriminalsProgram.Views
       string appearance = PromptString("Зовнішній вигляд: ");
       Gender gender = PromptGender();
       DateOnly dateOfBirth = PromptBirthDate();
-      CriminalStatus status = PromptStatus();
+      CriminalStatus status = PromptAliveStatus();
       List<Alias> aliases = AliasView.PromptAliases();
       var criminalBuilder = new CriminalBuilder();
 
