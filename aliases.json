@@ -1,1 +1,15 @@
-{"Aliases":[{"Id":1,"Name":"Mafia"},{"Id":2,"Name":"Runners"},{"Id":3,"Name":"Drug dealers"},{"Id":4,"Name":"Newyorkers"},{"Id":5,"Name":"Petrenki"}]}
+{
+  "Aliases": [
+    { "Id": 1, "Name": "Mafia" },
+    { "Id": 2, "Name": "Runners" },
+    { "Id": 3, "Name": "Drug dealers" },
+    { "Id": 4, "Name": "Newyorkers" },
+    { "Id": 5, "Name": "Gangsters" },
+    { "Id": 6, "Name": "Mobsters" },
+    { "Id": 7, "Name": "Thugs" },
+    { "Id": 8, "Name": "Hoodlums" },
+    { "Id": 9, "Name": "Assassins" },
+    { "Id": 10, "Name": "Blackmailers" },
+    { "Id": 11, "Name": "Racketeers" }
+  ]
+}
