@@ -69,7 +69,6 @@ namespace CriminalsProgram.Views
     public static void ShowFilterMenu(List<Criminal>? criminals = null)
     {
       if (criminals == null) criminals = CriminalService.GetAllCriminals();
-      Console.Clear();
       Log("Фільтрування злочинців");
       Log("1. Фільтрувати за імʼям");
       Log("2. Фільтрувати за прізвищем");
