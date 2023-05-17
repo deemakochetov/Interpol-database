@@ -33,7 +33,7 @@ namespace CriminalsProgram.Views
       }
       else
       {
-        Log("Not found");
+        Log("Не знайдено");
         PromptClick();
       }
     }
@@ -66,9 +66,9 @@ namespace CriminalsProgram.Views
       }
       PromptClick();
     }
-    public static void ShowFilterMenu()
+    public static void ShowFilterMenu(List<Criminal>? criminals = null)
     {
-      List<Criminal> criminals = CriminalService.GetAllCriminals();
+      if (criminals == null) criminals = CriminalService.GetAllCriminals();
       Console.Clear();
       Log("Фільтрування злочинців");
       Log("1. Фільтрувати за імʼям");
@@ -80,52 +80,60 @@ namespace CriminalsProgram.Views
       Log("7. Фільтрувати за роком народження");
       Log("8. Повернутися до меню");
 
+      List<Criminal> filteredCriminals = new List<Criminal>();
       string filterChoice = PromptString("Виберіть опцію: ");
       switch (filterChoice)
       {
         case "1":
           string nameFilter = PromptString("Введіть ім'я для фільтрування: ");
-          List<Criminal> filteredByName = CriminalService.FilterByName(CriminalService.GetActiveCriminals(), nameFilter);
-          ListObjects<Criminal>(filteredByName);
+          filteredCriminals = CriminalService.FilterByName(criminals, nameFilter);
+          ListObjects<Criminal>(filteredCriminals);
           break;
         case "2":
           string surnameFilter = PromptString("Введіть прізвище для фільтрування: ");
-          List<Criminal> filteredBySurname = CriminalService.FilterBySurname(criminals, surnameFilter);
-          ListObjects<Criminal>(filteredBySurname);
+          filteredCriminals = CriminalService.FilterBySurname(criminals, surnameFilter);
+          ListObjects<Criminal>(filteredCriminals);
           break;
         case "3":
           string hairColorFilter = PromptString("Введіть колір волосся для фільтрування: ");
-          List<Criminal> filteredByHairColor = CriminalService.FilterByHairColor(CriminalService.GetActiveCriminals(), hairColorFilter);
-          ListObjects<Criminal>(filteredByHairColor);
+          filteredCriminals = CriminalService.FilterByHairColor(criminals, hairColorFilter);
+          ListObjects<Criminal>(filteredCriminals);
           break;
         case "4":
           string eyesColorFilter = PromptString("Введіть колір очей для фільтрування: ");
-          List<Criminal> filteredByEyesColor = CriminalService.FilterByEyesColor(criminals, eyesColorFilter);
-          ListObjects<Criminal>(filteredByEyesColor);
+          filteredCriminals = CriminalService.FilterByEyesColor(criminals, eyesColorFilter);
+          ListObjects<Criminal>(filteredCriminals);
           break;
         case "5":
           string nationalityFilter = PromptString("Введіть національність для фільтрування: ");
-          List<Criminal> filteredByNationality = CriminalService.FilterByNationality(criminals, nationalityFilter);
-          ListObjects<Criminal>(filteredByNationality);
+          filteredCriminals = CriminalService.FilterByNationality(criminals, nationalityFilter);
+          ListObjects<Criminal>(filteredCriminals);
           break;
         case "6":
           string criminalJobFilter = PromptString("Введіть кримінальне заняття для фільтрування: ");
-          List<Criminal> filteredByCriminalJob = CriminalService.FilterByCriminalJob(criminals, criminalJobFilter);
-          ListObjects<Criminal>(filteredByCriminalJob);
+          filteredCriminals = CriminalService.FilterByCriminalJob(criminals, criminalJobFilter);
+          ListObjects<Criminal>(filteredCriminals);
           break;
         case "7":
           int birthYearFilter = PromptInt("Введіть рік народження для фільтрування: ");
-          List<Criminal> filteredByBirthYear = CriminalService.FilterByBirthYear(criminals, birthYearFilter);
-          ListObjects<Criminal>(filteredByBirthYear);
+          filteredCriminals = CriminalService.FilterByBirthYear(criminals, birthYearFilter);
+          ListObjects<Criminal>(filteredCriminals);
           break;
         case "8":
+          CriminalStatus statusFilter = PromptAliveStatus();
+          filteredCriminals = CriminalService.FilterByStatus(criminals, statusFilter);
+          ListObjects<Criminal>(filteredCriminals);
+          return;
+        case "9":
           return;
         default:
-          Log("Невірний вибір опції. Натисніть будь-яку клавішу для продовження...");
-          Console.ReadKey();
+          Log("Невірний вибір опції.");
+          PromptClick();
           ShowFilterMenu();
           break;
       }
+      bool continueFiltering = SuggestFilter();
+      if (continueFiltering) ShowFilterMenu(filteredCriminals);
     }
     public static Criminal PromptCriminal(int id)
     {
@@ -192,6 +200,23 @@ namespace CriminalsProgram.Views
           return CriminalStatus.Archived;
         case 3:
           return CriminalStatus.Dead;
+        default:
+          Log("Некорректний ввід");
+          return PromptStatus();
+      }
+    }
+    public static CriminalStatus PromptAliveStatus()
+    {
+      Log("Статус злочинця:");
+      Log("1. Діючий");
+      Log("2. Виправлений");
+      int statusOption = PromptInt("Оберіть опцію: ");
+      switch (statusOption)
+      {
+        case 1:
+          return CriminalStatus.Active;
+        case 2:
+          return CriminalStatus.Archived;
         default:
           Log("Некорректний ввід");
           return PromptStatus();
@@ -358,8 +383,8 @@ namespace CriminalsProgram.Views
         case 21:
           return criminal;
         default:
-          Log("Невірний вибір опції. Натисніть будь-яку клавішу для продовження...");
-          Console.ReadKey();
+          Log("Невірний вибір опції.");
+          PromptClick();
           break;
       }
       LogSuccess();

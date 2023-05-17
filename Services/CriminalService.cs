@@ -44,6 +44,10 @@ namespace CriminalsProgram.Services
     {
       return criminals.Where(criminal => criminal.DateOfBirth.Year == birthYear).ToList();
     }
+    public static List<Criminal> FilterByStatus(List<Criminal> criminals, CriminalStatus status)
+    {
+      return criminals.Where(criminal => criminal.Status == status).ToList();
+    }
     public static List<Criminal> GetActiveCriminals()
     {
       List<Criminal> activeCriminals = database.GetActiveCriminals();

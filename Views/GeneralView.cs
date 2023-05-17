@@ -28,7 +28,7 @@ namespace CriminalsProgram.Views
     {
       Log("Опції:");
       Log("1. Зберегти дані цих обʼєктів до файлу для друку");
-      Log("2. Вийти");
+      Log("2. Продовжити");
       int option = PromptInt("Оберіть опцію: ");
       switch (option)
       {
@@ -43,6 +43,23 @@ namespace CriminalsProgram.Views
           Log("Некорректний ввід");
           SuggestPrint(objects);
           break;
+      }
+    }
+    public static bool SuggestFilter()
+    {
+      Log("Опції:");
+      Log("1. Додати ще фільтр");
+      Log("2. Завершити");
+      int option = PromptInt("Оберіть опцію: ");
+      switch (option)
+      {
+        case 1:
+          return true;
+        case 2:
+          return false;
+        default:
+          Log("Некорректний ввід");
+          return SuggestFilter();
       }
     }
     public static void LogSuccess()
