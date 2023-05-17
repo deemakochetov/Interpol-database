@@ -23,7 +23,7 @@ namespace CriminalsProgram.Views
     public static void UpdateAlias()
     {
       int id = PromptId();
-      Alias aliasToUpdate = AliasService.GetAliasById(id);
+      Alias? aliasToUpdate = AliasService.GetAliasById(id);
 
       if (aliasToUpdate != null)
       {
@@ -77,7 +77,7 @@ namespace CriminalsProgram.Views
     public static void ShowMembers()
     {
       int id = PromptId();
-      Alias alias = AliasService.GetAliasById(id);
+      Alias? alias = AliasService.GetAliasById(id);
       if (alias != null)
       {
         List<Criminal> members = CriminalService.GetAliasMembers(id);
@@ -89,7 +89,7 @@ namespace CriminalsProgram.Views
         PromptClick();
       }
     }
-    public static List<Alias> PromptAliases(List<Alias> aliases = null, List<Alias> chosenAliases = null)
+    public static List<Alias> PromptAliases(List<Alias>? aliases = null, List<Alias>? chosenAliases = null)
     {
       if (aliases == null) aliases = AliasService.GetAllAliases();
       if (aliases.Count == 0)
@@ -100,7 +100,7 @@ namespace CriminalsProgram.Views
       if (chosenAliases == null) chosenAliases = new List<Alias>();
       Log("Оберіть угруповання:");
       int counter = 1;
-      Dictionary<string, Alias> aliasesOptions = new Dictionary<string, Alias>();
+      Dictionary<string, Alias?> aliasesOptions = new Dictionary<string, Alias?>();
 
       foreach (Alias alias in aliases)
       {
@@ -117,9 +117,9 @@ namespace CriminalsProgram.Views
         {
           return chosenAliases;
         }
-        if (!chosenAliases.Contains(aliasesOptions[option]))
+        if (!chosenAliases.Contains(aliasesOptions[option]!))
         {
-          chosenAliases.Add(aliasesOptions[option]);
+          chosenAliases.Add(aliasesOptions[option]!);
         }
         else
         {

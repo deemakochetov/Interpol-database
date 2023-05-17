@@ -27,13 +27,13 @@ namespace CriminalsProgram.Models.Main
     }
     public class JsonFormatCriminals
     {
-      public List<Criminal> ActiveCriminals { get; set; }
-      public List<Criminal> ArchivedCriminals { get; set; }
+      public List<Criminal> ActiveCriminals { get; set; } = new List<Criminal>();
+      public List<Criminal> ArchivedCriminals { get; set; } = new List<Criminal>();
     }
 
     public class JsonFormatAliases
     {
-      public List<Alias> Aliases { get; set; }
+      public List<Alias> Aliases { get; set; } = new List<Alias>();
     }
     public static void LoadCriminals(string fileName, out List<Criminal> activeCriminals, out List<Criminal> archivedCriminals)
     {
@@ -43,7 +43,8 @@ namespace CriminalsProgram.Models.Main
         string jsonData = File.ReadAllText(fileName);
 
         // Deserialize the JSON data to an object
-        JsonFormatCriminals data = JsonSerializer.Deserialize<JsonFormatCriminals>(jsonData);
+        JsonFormatCriminals? data = JsonSerializer.Deserialize<JsonFormatCriminals>(jsonData);
+        if (data == null) throw new Exception();
 
         activeCriminals = data.ActiveCriminals;
         archivedCriminals = data.ArchivedCriminals;
@@ -54,7 +55,6 @@ namespace CriminalsProgram.Models.Main
         else Console.WriteLine("Помилка читання з фалу: " + ex.Message);
         activeCriminals = new List<Criminal>(new Criminal[0]);
         archivedCriminals = new List<Criminal>(new Criminal[0]);
-
       }
     }
 
@@ -84,7 +84,8 @@ namespace CriminalsProgram.Models.Main
         string jsonData = File.ReadAllText(fileName);
 
         // Deserialize the JSON data to an object
-        JsonFormatAliases data = JsonSerializer.Deserialize<JsonFormatAliases>(jsonData);
+        JsonFormatAliases? data = JsonSerializer.Deserialize<JsonFormatAliases>(jsonData);
+        if (data == null) throw new Exception();
 
         aliases = data.Aliases;
       }

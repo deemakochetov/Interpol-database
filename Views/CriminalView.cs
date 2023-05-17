@@ -20,7 +20,7 @@ namespace CriminalsProgram.Views
     public static void UpdateCriminal()
     {
       int id = PromptId();
-      Criminal criminalToUpdate = CriminalService.GetActiveCriminals().Find(c => c.Id == id);
+      Criminal? criminalToUpdate = CriminalService.GetActiveCriminals().Find(c => c.Id == id);
       if (criminalToUpdate == null) criminalToUpdate = CriminalService.GetArchivedCriminals().Find(c => c.Id == id);
 
       if (criminalToUpdate != null)
@@ -49,8 +49,7 @@ namespace CriminalsProgram.Views
     }
     public static void ShowSearchMenu()
     {
-      Console.Write("Введіть пошуковий запит: ");
-      string searchQuery = Console.ReadLine();
+      string searchQuery = PromptString("Введіть пошуковий запит: ");
       List<Criminal> searchResults = CriminalService.SearchCriminals(searchQuery);
       if (searchResults.Count == 0)
       {

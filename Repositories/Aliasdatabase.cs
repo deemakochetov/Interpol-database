@@ -17,7 +17,7 @@ namespace CriminalsProgram.Repositories
       _aliases.Add(alias);
       SaveAliases();
     }
-    public Alias GetAliasById(int id)
+    public Alias? GetAliasById(int id)
     {
       return _aliases.FirstOrDefault(a => a.Id == id);
     }

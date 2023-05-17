@@ -43,7 +43,7 @@ namespace CriminalsProgram.Views
     public static string PromptString(string message)
     {
       Print(message);
-      string input = Console.ReadLine();
+      string? input = Console.ReadLine();
       if (string.IsNullOrEmpty(input))
       {
         Log("Введене значення не може бути порожнім");
@@ -54,7 +54,7 @@ namespace CriminalsProgram.Views
     public static int PromptInt(string message)
     {
       Print(message);
-      string input = Console.ReadLine();
+      string? input = Console.ReadLine();
       if (string.IsNullOrEmpty(input))
       {
         Log("Введене значення не може бути порожнім");
@@ -99,7 +99,7 @@ namespace CriminalsProgram.Views
     public static DateOnly PromptBirthDate()
     {
       Print("Дата народження (yyyy-mm-dd): ");
-      string input = Console.ReadLine();
+      string? input = Console.ReadLine();
       DateOnly dateOfBirth;
       if (DateOnly.TryParse(input, out dateOfBirth))
       {

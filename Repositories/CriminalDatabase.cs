@@ -54,7 +54,7 @@ namespace CriminalsProgram.Repositories
     }
     public bool UpdateCriminal(int id, Criminal updatedCriminal, CriminalStatus lastStatus)
     {
-      Criminal criminalToUpdate = activeCriminals.Find(criminal => criminal.Id == id);
+      Criminal? criminalToUpdate = activeCriminals.Find(criminal => criminal.Id == id);
       if (criminalToUpdate == null)
       {
         criminalToUpdate = archivedCriminals.Find(criminal => criminal.Id == id);

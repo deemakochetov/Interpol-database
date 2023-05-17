@@ -33,7 +33,7 @@ namespace CriminalsProgram.Services
     {
       database.UpdateAlias(updatedAlias);
     }
-    public static Alias GetAliasById(int id)
+    public static Alias? GetAliasById(int id)
     {
       return database.GetAliasById(id);
     }
