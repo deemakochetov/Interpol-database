@@ -44,5 +44,4 @@ namespace CriminalsProgram.Models.Main
       return $"Id: {Id}\nІм'я: {FirstName}\nПрізвище: {LastName}\nЗріст: {Height}\nВага: {Weight}\nКолір волосся: {HairColor}\nКолір очей: {EyesColor}\nНаціональність: {Nationality}\nМісце народження: {BirthPlace}\nОстаннє місце проживання: {LastResidencePlace}\nПоточне місце знаходження: {CurrentLocation}\nЗнання мов: {Languages}\nКримінальне заняття: {CriminalJob}\nОстанній злочин: {LastCase}\nУгруповання: {getAliasesNames()}\nЗовнішній вигляд: {Appearance}\nГендер: {Gender}\nОпис злочину: {Description}\nСтатус: {Status}\nДата народження: {DateOfBirth}";
     }
   }
-
 }

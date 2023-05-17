@@ -126,7 +126,6 @@ namespace CriminalsProgram.Views
           ShowFilterMenu();
           break;
       }
-
     }
     public static Criminal PromptCriminal(int id)
     {
@@ -178,9 +177,6 @@ namespace CriminalsProgram.Views
                       .Build();
       return newCriminal;
     }
-
-
-
     public static CriminalStatus PromptStatus()
     {
       Log("Статус злочинця:");
@@ -201,9 +197,6 @@ namespace CriminalsProgram.Views
           return PromptStatus();
       }
     }
-
-
-
     public static Gender PromptGender()
     {
       Log("Стать злочинця:");
@@ -222,8 +215,6 @@ namespace CriminalsProgram.Views
           return PromptGender();
       }
     }
-
-
     public static int CalculateAge(DateOnly dateOfBirth)
     {
       int age = DateTime.Now.Year - dateOfBirth.Year;
@@ -233,7 +224,6 @@ namespace CriminalsProgram.Views
       }
       return age;
     }
-
     public static Criminal PromptUpdate(Criminal criminal)
     {
       Log("Оберіть інформацію, яку ви хочете змінити:");
@@ -374,6 +364,4 @@ namespace CriminalsProgram.Views
       return PromptUpdate(criminal);
     }
   }
-
-
 }

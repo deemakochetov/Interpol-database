@@ -8,6 +8,7 @@ namespace CriminalsProgram.Views
 {
   public static class GeneralView
   {
+    public static string Separator = "---------------------------";
     public static void ListObjects<T>(List<T> objects) where T : IReviewable
     {
       if (objects.Count == 0)
@@ -23,8 +24,28 @@ namespace CriminalsProgram.Views
           LogSeparator();
         }
       }
-      Log("Натисніть будь-яку клавішу для продовження...");
-      Console.ReadKey();
+      SuggestPrint<T>(objects);
+    }
+    public static void SuggestPrint<T>(List<T> objects) where T : IReviewable
+    {
+      Log("Опції:");
+      Log("1. Зберегти дані цих обʼєктів до файлу для друку");
+      Log("2. Вийти");
+      int option = PromptInt("Оберіть опцію: ");
+      switch (option)
+      {
+        case 1:
+          string fileName = CriminalService.SaveForPrint<T>(objects, Separator);
+          Log($"Усі дані обраних обʼєктів були збережені до файлу {fileName} у папці prints");
+          PromptClick();
+          break;
+        case 2:
+          return;
+        default:
+          Log("Некорректний ввід");
+          SuggestPrint(objects);
+          break;
+      }
     }
     public static void LogSuccess()
     {
@@ -74,7 +95,7 @@ namespace CriminalsProgram.Views
 
     public static void LogSeparator()
     {
-      Log("--------------------------");
+      Log(Separator);
     }
     public static void PromptClick()
     {

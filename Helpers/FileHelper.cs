@@ -11,13 +11,10 @@ namespace CriminalsProgram.Models.Main
     {
       try
       {
-        // Create a new object to hold the criminals data
         var data = new { ActiveCriminals = activeCriminals, ArchivedCriminals = archivedCriminals };
 
-        // Serialize the data to JSON format
         string jsonData = JsonSerializer.Serialize(data);
 
-        // Write the JSON data to the file
         File.WriteAllText(fileName, jsonData);
       }
       catch (Exception ex)
@@ -39,10 +36,8 @@ namespace CriminalsProgram.Models.Main
     {
       try
       {
-        // Read the JSON data from the file
         string jsonData = File.ReadAllText(fileName);
 
-        // Deserialize the JSON data to an object
         JsonFormatCriminals? data = JsonSerializer.Deserialize<JsonFormatCriminals>(jsonData);
         if (data == null) throw new Exception();
 
@@ -64,10 +59,8 @@ namespace CriminalsProgram.Models.Main
       {
         var data = new { Aliases = aliases };
 
-        // Serialize the data to JSON format
         string jsonData = JsonSerializer.Serialize(data);
 
-        // Write the JSON data to the file
         File.WriteAllText(fileName, jsonData);
       }
       catch (Exception ex)
@@ -80,10 +73,8 @@ namespace CriminalsProgram.Models.Main
     {
       try
       {
-        // Read the JSON data from the file
         string jsonData = File.ReadAllText(fileName);
 
-        // Deserialize the JSON data to an object
         JsonFormatAliases? data = JsonSerializer.Deserialize<JsonFormatAliases>(jsonData);
         if (data == null) throw new Exception();
 
@@ -92,9 +83,21 @@ namespace CriminalsProgram.Models.Main
       catch (Exception ex)
       {
         if (ex.Message.Contains("Could not find file")) Console.WriteLine("Файл не був знайдений. Він буде створений при додаванні нових угруповань");
-        else Console.WriteLine("Помилка читання з фалу: " + ex.Message);
+        else Console.WriteLine("Помилка читання з фалу: " + ex.Message); // maybe change
         aliases = new List<Alias>(new Alias[0]);
       }
+    }
+
+    public static string SaveStringToFile(string text)
+    {
+      string fileName = Path.GetRandomFileName();
+      string filePath = Path.Combine("prints", fileName);
+
+      Directory.CreateDirectory("prints");
+
+      File.WriteAllText(filePath, text);
+
+      return fileName;
     }
   }
 }
